@@ -1,1 +1,71 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --gl-black-cl: #161616;
+    --gl-white-cl: #fff;
+    --gl-border-radius: 0.5rem;
+    --gl-gray-cl: #ffffff30;
+    --gl-error-cl: rgb(152, 39, 39);
+}
+
+html * {
+    box-sizing: border-box;
+}
+
+.mat-typography,
+.mat-typography * {
+    font-family: Poppins, "Helvetica Neue", sans-serif;
+    letter-spacing: -0.02rem;
+}
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Poppins, "Helvetica Neue", sans-serif;
+}
+
+.input,
+.button {
+    padding: 14px 18px;
+    border-radius: var(--gl-border-radius);
+    width: 100%;
+    transition: all 0.25s linear;
+    outline: none;
+    font-size: 14px;
+}
+
+.input {
+    border: 1px solid var(--input-border-cl);
+    background: transparent;
+    color: var(--input-text-cl);
+
+    &:hover,
+    &:focus,
+    &:not(:placeholder-shown) {
+        border-color: var(--primary-cl);
+        color: var(--input-text-hover-cl);
+    }
+
+    &.ng-touched.ng-invalid {
+        border-color: var(--gl-error-cl);
+
+        &:hover,
+        &:focus {
+            border-color: var(--primary-cl);
+            color: var(--input-text-hover-cl);
+        }
+    }
+}
+
+.button {
+    font-weight: 500;
+    background-color: var(--primary-cl);
+    cursor: pointer;
+    color: var(--button-cl);
+
+    &:focus,
+    &:hover {
+        background-color: var(--accent-cl);
+    }
+}

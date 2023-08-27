@@ -1,0 +1,45 @@
+.auth-wrapper {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    max-width: 424px;
+    transform: translate(-50%, -50%);
+
+    padding: 1.5rem;
+    background-color: var(--gl-black-cl);
+    border-radius: var(--gl-border-radius);
+
+    @media screen and (min-width: 768px) {
+        padding: 2.5rem;
+    }
+}
+
+.auth-links {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 2.5rem;
+}
+
+.auth-link {
+    text-decoration: none;
+    color: var(--gl-gray-cl);
+    transition: color 0.25s linear;
+
+    &:not(:last-child) {
+        margin-right: 14px;
+    }
+
+    &.active {
+        color: var(--gl-white-cl);
+    }
+}
+
+.input-wrapper:not(:last-child) {
+    display: block;
+    margin-bottom: 14px;
+}
+
+.inputs {
+    margin-bottom: 1.5rem;
+}

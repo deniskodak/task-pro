@@ -1,10 +1,35 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppRoutes } from './routes';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: AppRoutes.Welcome,
+    loadChildren: () =>
+      import('../app/features/welcome/welcome-routing.module').then(
+        (module) => module.WelcomeRoutingModule
+      ),
+  },
+  {
+    path: AppRoutes.Auth,
+    loadChildren: () =>
+      import('../app/features/auth/auth-routing.module').then(
+        (module) => module.WelcomeRoutingModule
+      ),
+  },
+  {
+    path: '**',
+    redirectTo: AppRoutes.Welcome,
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: AppRoutes.Welcome,
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

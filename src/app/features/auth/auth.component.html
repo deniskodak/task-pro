@@ -1,0 +1,73 @@
+<app-linear>
+  <div class="auth-wrapper" [@smoothAppear]>
+    <div class="auth-links">
+      <a
+        class="auth-link"
+        routerLinkActive="active"
+        [routerLink]="['../', 'signup']"
+        >Registration</a
+      >
+      <a
+        class="auth-link"
+        routerLinkActive="active"
+        [routerLink]="['../', 'login']"
+        >Log In</a
+      >
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="inputs">
+        <app-input-feedback
+          class="input-wrapper"
+          *ngIf="!isLogin"
+          feedback="Name field is required"
+          [isShown]="!form.get('name').valid && form.get('name').touched"
+        >
+          <input
+            formControlName="name"
+            class="input"
+            ngModel
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Enter your name"
+          />
+        </app-input-feedback>
+        <app-input-feedback
+          class="input-wrapper"
+          feedback="Email field is required"
+          [isShown]="getIsFieldInvalid('email')"
+        >
+          <input
+            formControlName="email"
+            type="email"
+            class="input"
+            name="email"
+            ngModel
+            id="email"
+            placeholder="Enter your email"
+          />
+        </app-input-feedback>
+        <app-input-feedback
+          class="input-wrapper"
+          feedback="Password field is required"
+          [isShown]="getIsFieldInvalid('password')"
+        >
+          <input
+            formControlName="password"
+            type="password"
+            class="input"
+            ngModel
+            name="password"
+            id="password"
+            [placeholder]="
+              (isLogin ? 'Confirm a ' : 'Create your') + ' password'
+            "
+          />
+        </app-input-feedback>
+      </div>
+      <button type="submit" class="button" [@vibrateAnimation]="vibrateState">
+        {{ isLogin ? "Log In Now" : "Register Now" }}
+      </button>
+    </form>
+  </div>
+</app-linear>
