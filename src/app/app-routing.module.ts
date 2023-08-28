@@ -18,6 +18,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: AppRoutes.Home,
+    loadChildren: () =>
+      import('../app/features/home/home-routing.module').then(
+        (module) => module.HomeRoutingModule
+      ),
+  },
+  {
     path: '**',
     redirectTo: AppRoutes.Welcome,
   },

@@ -1,0 +1,10 @@
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    background-color: var(--secondary-bg-cl);
+    width: 100%;
+    height: calc(100vh - var(--gl-header-height));
+}

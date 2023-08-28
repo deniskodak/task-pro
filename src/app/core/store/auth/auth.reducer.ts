@@ -17,7 +17,7 @@ const initialState: AuthState = {
 export const authReducer = createReducer(
   initialState,
   on(authActions.authSuccess, (state, { user }) => ({
-    user: new User(user.email, user.id, user.token, user.expiresIn),
+    user: new User(user.name, user.email, user.id, user.token, user.expiresIn),
     authError: null,
     loading: false,
   })),

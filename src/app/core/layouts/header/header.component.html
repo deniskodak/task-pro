@@ -1,0 +1,16 @@
+<div class="header">
+  <div class="right-wrapper">
+    <button mat-button [matMenuTriggerFor]="menu" class="themes-menu">
+      Themes
+    </button>
+    <mat-menu #menu="matMenu" class="themes-dropdown dropdown">
+      <button mat-menu-item>Light</button>
+      <button mat-menu-item>Dark</button>
+      <button mat-menu-item>Violet</button>
+    </mat-menu>
+    <div class="user-info">
+      <span>{{ userName }}</span>
+      <div class="image-wrapper"></div>
+    </div>
+  </div>
+</div>

@@ -13,7 +13,7 @@ export const publicGuard = () => {
     map((user) => {
       return (
         !user?.token ||
-        router.createUrlTree(['/', AppRoutes.Auth, AppRoutes.Welcome])
+        router.createUrlTree(['/', AppRoutes.Home])
       );
     })
   );
@@ -25,7 +25,7 @@ export const privateGuard = () => {
   return storeService.select(authUserSelector).pipe(
     take(1),
     map((user) => {
-      return !!user?.token || router.createUrlTree(['/', AppRoutes.Home]);
+      return !!user?.token || router.createUrlTree(['/', AppRoutes.Welcome]);
     })
   );
 };

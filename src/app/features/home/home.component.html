@@ -1,1 +1,18 @@
-<p>home works!</p>
+<div [ngSwitch]="layoutType$ | async">
+    <app-header></app-header>
+  <div *ngSwitchCase="breakpoints.Web">
+    <main class="web" automation-id="web">
+      <div class="content"></div>
+    </main>
+  </div>
+  <div *ngSwitchCase="breakpoints.Tablet">
+    <main class="tablet" automation-id="tablet">
+      <div class="content"></div>    </main>
+  </div>
+  <div *ngSwitchDefault>
+    <div>
+      <main class="handset" automation-id="handset">
+        <div class="content"></div>      </main>
+    </div>
+  </div>
+</div>

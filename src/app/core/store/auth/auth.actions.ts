@@ -17,7 +17,7 @@ export const authActions = createActionGroup({
   events: {
     [AuthActionsTypes.AuthSuccess]: props<{ user: User; redirect: boolean }>(),
     [AuthActionsTypes.LoginStart]: props<{ email: string; password: string }>(),
-    [AuthActionsTypes.SignStart]: props<{ email: string; password: string }>(),
+    [AuthActionsTypes.SignStart]: props<{ email: string; password: string, name: string }>(),
     [AuthActionsTypes.AuthFail]: props<{ message: string }>(),
     [AuthActionsTypes.ClearError]: emptyProps(),
     [AuthActionsTypes.AutoLogin]: emptyProps(),

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { privateGuard } from 'src/app/core/guards/auth.service';
 
+
 const routes: Routes = [
   {
     path: '',

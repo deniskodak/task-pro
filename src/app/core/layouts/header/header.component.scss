@@ -1,0 +1,56 @@
+.header {
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--primary-bg-cl);
+    height: 60px;
+    padding: 14px 20px;
+
+    .themes-menu {
+        color: var(--text-secondary-cl);
+        margin-right: 14px;
+    }
+}
+
+::ng-deep .themes-dropdown.dropdown {
+    background-color: var(--primary-bg-cl);
+    border-radius: var(--gl-border-radius);
+    padding: 10px 2px;
+    border: 1px solid var(--primary-cl);
+
+    button {
+        color: var(--text-secondary-cl);
+        min-height: auto;
+
+        &:hover, 
+        &:focus {
+            color: var(--primary-cl);
+        }
+
+        &:not(:last-child) {
+            margin-bottom: 4px;
+        }
+    }
+}
+
+.right-wrapper {
+    display: inline-flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+
+    span {
+        margin-right: 0.5rem;
+        color: var(--text-primary-cl);
+    }
+}
+
+.image-wrapper {
+    height: 32px;
+    width: 32px;
+    border-radius: var(--gl-border-radius);
+    background-color: aqua;
+}

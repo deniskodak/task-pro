@@ -1,3 +1,6 @@
+import { environment } from './../../../environments/environment';
+import { Store } from '@ngrx/store';
+import { authActions } from './../../core/store/auth/auth.actions';
 import {
   vibrate,
   VibrateStates,
@@ -15,6 +18,7 @@ import {
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { InputFeedbackComponent } from 'src/app/shared/input-feedback/input-feedback.component';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -31,7 +35,11 @@ import { InputFeedbackComponent } from 'src/app/shared/input-feedback/input-feed
   animations: [smoothAppear, vibrate],
 })
 export class AuthComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store,
+    private http: HttpClient
+  ) {}
   isLogin = false;
   form: FormGroup;
   vibrateState = VibrateStates.Inactive;
@@ -69,8 +77,14 @@ export class AuthComponent implements OnInit {
     if (!this.form.valid) {
       this.form.markAllAsTouched();
       this.toggleVibrate();
+      return;
     }
-    console.log(this.form.valid);
+    const { name, password, email } = this.form.value;
+    if (this.isLogin) {
+      this.store.dispatch(authActions.loginStart({ email, password }));
+    } else {
+      this.store.dispatch(authActions.signStart({ name, password, email }));
+    }
   }
 
   getIsFieldInvalid(fieldName) {
