@@ -22,6 +22,35 @@
     align-items: center;
 }
 
+%align-full {
+    @extend %align-vertical;
+    justify-content: center;
+}
+
+%column-direction {
+    display: flex;
+    flex-direction: column;
+}
+
+%primary-icon {
+    width: 1rem;
+    height: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--text-secondary-cl);
+    transition: all var(--gl-transition-cl);
+
+    &:hover,
+    &:focus {
+        color: var(--primary-cl);
+        filter: drop-shadow(0px 0px 5px var(--primary-cl));
+    }
+
+    &.edit {
+        margin-right: 0.5rem;
+    }
+}
+
 @mixin backdrop($z-index) {
     position: fixed;
     top: 0;

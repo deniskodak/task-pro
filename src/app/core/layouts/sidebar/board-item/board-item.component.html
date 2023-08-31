@@ -1,6 +1,8 @@
-<div class="board-item">
+<div class="board-item" [ngClass]="{ active: isActive }" (click)="onItemClick()">
   <i class="icon"></i>
-  <strong class="board-item-title">{{ board.name }}</strong>
-  <mat-icon class="board-item-icon edit" (click)="onEdit()">edit</mat-icon>
-  <mat-icon class="board-item-icon" (click)="onDelete()">delete_outline</mat-icon>
+  <strong class="board-item-title">{{ board?.name }}</strong>
+  <mat-icon class="board-item-icon edit" (click)="onEdit($event)">edit</mat-icon>
+  <mat-icon class="board-item-icon" (click)="onDelete($event)"
+    >delete_outline</mat-icon
+  >
 </div>

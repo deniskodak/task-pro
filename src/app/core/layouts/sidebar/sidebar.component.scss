@@ -12,6 +12,17 @@ aside {
     @media screen and (min-width: 768px) {
         width: 260px;
     }
+
+    &::-webkit-scrollbar {
+        width: 0.5em;
+        height: 0.5em;
+        background-color: var(--gl-medium-gray-cl);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--primary-bg-cl);
+        border-radius: 0.5rem;
+    }
 }
 
 h1 {
@@ -39,6 +50,7 @@ h1 {
     margin-bottom: 0.5rem;
 }
 
+.sidebar-top,
 .new-board-wrapper {
     margin-bottom: 40px;
 }

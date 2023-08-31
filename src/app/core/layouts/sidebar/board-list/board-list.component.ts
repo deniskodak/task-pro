@@ -1,8 +1,17 @@
-import { Observable } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 import { AsyncPipe, NgFor } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { tasksBoardsSelector } from 'src/app/core/store/tasks/tasks.selectors';
+import {
+  tasksBoardsSelector,
+  tasksSelectedBoardSelector,
+} from 'src/app/core/store/tasks/tasks.selectors';
 import { Board } from 'src/app/core/models/board.model';
 import { BoardItemComponent } from '../board-item/board-item.component';
 
@@ -14,12 +23,23 @@ import { BoardItemComponent } from '../board-item/board-item.component';
   styleUrls: ['./board-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BoardListComponent implements OnInit {
+export class BoardListComponent implements OnInit, OnDestroy {
   boards$: Observable<Board[]>;
+  selectedBoard: Board = null;
+  selectedBoardSub: Subscription;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.boards$ = this.store.select(tasksBoardsSelector);
+    this.selectedBoardSub = this.store
+      .select(tasksSelectedBoardSelector)
+      .subscribe((board) => {
+        this.selectedBoard = board;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.selectedBoardSub.unsubscribe();
   }
 }

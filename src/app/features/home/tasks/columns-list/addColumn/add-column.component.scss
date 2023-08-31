@@ -1,0 +1,9 @@
+@import "../../../../../styles/mixin.scss";
+
+.button {
+    @extend %align-full;
+
+    app-square-button {
+        margin-right: 0.5rem;
+    }
+}

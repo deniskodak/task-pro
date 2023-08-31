@@ -1,0 +1,21 @@
+@import '../../../../../../styles/mixin.scss';
+
+.column-info {
+    @extend %align-vertical;
+    background-color: var(--primary-bg-cl);
+    border-radius: var(--gl-border-radius);
+    padding: 18px;
+}
+
+.column-title {
+    color: var(--text-primary-cl);
+    font-weight: 500;
+    font-size: 14px;
+    margin: 0 auto 0 0;
+    line-height: 1.25;
+    text-transform: capitalize;
+}
+
+.column-item-icon {
+    @extend %primary-icon;
+}

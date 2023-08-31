@@ -1,0 +1,43 @@
+@import "../../../styles/mixin.scss";
+
+button {
+    position: relative;
+    height: 28px;
+    width: 28px;
+    border-radius: var(--gl-border-radius);
+    border-style: solid;
+    outline: none;
+    transition: all var(--gl-transition);
+    cursor: pointer;
+    
+    &::after,
+    &::before {
+        @extend %commonBefore;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: var(--gl-border-radius);
+    }
+
+    &::before {
+        width: 2px;
+        height: 10px;
+    }
+
+    &::after {
+        width: 10px;
+        height: 2px;
+    }
+
+    &.light {
+        background-color: var(--text-primary-cl);
+        border-color: var(--text-primary-cl);
+
+        &::after,
+        &::before {
+            background-color: var(--primary-bg-cl);
+        }
+    }
+}

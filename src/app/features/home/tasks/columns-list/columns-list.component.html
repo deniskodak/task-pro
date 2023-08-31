@@ -1,0 +1,8 @@
+<ul class="columns-list">
+  <li class="columns-item" *ngFor="let project of projects$ | async">
+    <app-columns-item [column]="project" ></app-columns-item>
+  </li>
+  <li class="columns-item">
+    <app-add-column></app-add-column>
+  </li>
+</ul>

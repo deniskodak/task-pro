@@ -1,12 +1,42 @@
-@import '../../../../../styles/mixin.scss';
+@import "../../../../../styles/mixin.scss";
 
 .board-item {
     @extend %align-vertical;
 
+    position: relative;
     padding: 20px 14px;
     color: var(--text-secondary-cl);
     font-size: 14px;
     font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--gl-transition);
+
+    &::after {
+        display: block;
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 4px;
+        top: 0;
+        right: 0;
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+        transition: inherit;
+    }
+
+    &.active,
+    &:hover,
+    &:focus {
+        background-color: var(--secondary-bg-cl);
+
+        .board-item-title {
+            color: var(--text-primary-cl);
+        }
+
+        &::after {
+            background-color: var(--primary-cl);
+        }
+    }
 }
 
 .board-item-title {
@@ -14,20 +44,5 @@
 }
 
 .board-item-icon {
-    width: 1rem;
-    height: 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all var(--gl-transition-cl);
-
-    &:hover,
-    &:focus {
-        color: var(--primary-cl);
-        filter: drop-shadow(0px 0px 5px var(--primary-cl));
-
-    }
-
-    &.edit {
-        margin-right: 0.5rem;
-    }
+    @extend %primary-icon;
 }

@@ -7,6 +7,7 @@ export enum TasksActionTypes {
   FetchBoards = 'FetchBoards',
   FetchBoardsStart = 'FetchBoardsStart',
   FetchProjects = 'FetchProjects',
+  FetchProjectsStart = 'FetchProjectsStart',
   AddBoard = 'AddBoard',
   AddTask = 'AddTask',
   AddProject = 'AddProject',
@@ -14,8 +15,9 @@ export enum TasksActionTypes {
   DeleteTask = 'DeleteTask',
   DeleteProject = 'DeleteProject',
   EditBoard = 'EditBoard',
-  EditProjectTitle = 'EditProjectTitle',
+  EditProject = 'EditProject',
   EditTask = 'EditTask',
+  SetActiveBoard = 'SetActiveBoard'
 }
 
 export const tasksActions = createActionGroup({
@@ -24,6 +26,7 @@ export const tasksActions = createActionGroup({
     [TasksActionTypes.FetchBoards]: props<{ boards: Board[] }>(),
     [TasksActionTypes.FetchBoardsStart]: emptyProps(),
     [TasksActionTypes.FetchProjects]: props<{ projects: Project[] }>(),
+    [TasksActionTypes.FetchProjectsStart]: emptyProps(),
     [TasksActionTypes.AddBoard]: props<{ board: Board }>(),
     [TasksActionTypes.AddProject]: props<{ project: Project }>(),
     [TasksActionTypes.AddTask]: props<{ task: Task }>(),
@@ -31,7 +34,8 @@ export const tasksActions = createActionGroup({
     [TasksActionTypes.DeleteProject]: props<{ id: string }>(),
     [TasksActionTypes.DeleteTask]: props<{ id: string }>(),
     [TasksActionTypes.EditBoard]: props<{ board: Board }>(),
-    [TasksActionTypes.EditProjectTitle]: props<{ title: string }>(),
+    [TasksActionTypes.EditProject]: props<{ title: string, id: string }>(),
     [TasksActionTypes.EditTask]: props<{ task: Task }>(),
+    [TasksActionTypes.SetActiveBoard]: props<{ board: Board }>(),
   },
 });

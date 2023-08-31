@@ -1,0 +1,9 @@
+.columns-list {
+    display: flex;
+    flex-wrap: nowrap;
+    width: fit-content;
+}
+
+.columns-item {
+    width: calc(100vw - 40px);
+}

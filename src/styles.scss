@@ -33,6 +33,12 @@ a {
     cursor: pointer;
 }
 
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 .input,
 .button {
     padding: 14px 18px;
@@ -81,5 +87,19 @@ a {
     &:hover {
         background-color: var(--accent-cl);
         border-color: var(--accent-cl);
+    }
+
+    &.secondary {
+        background-color: var(--primary-bg-cl);
+        border: 1px solid var(--primary-bg-cl);
+
+        color: var(--text-primary-cl);
+
+        &:focus,
+        &:hover {
+            background-color: var(--text-primary-cl);
+            border-color: var(--text-primary-cl);
+            color: var(--primary-bg-cl);
+        }
     }
 }

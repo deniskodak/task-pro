@@ -1,0 +1,55 @@
+@import "../../../../styles/mixin.scss";
+
+.tasks {
+    height: 100%;
+    padding: 14px 20px;
+    width: 100vw;
+
+    @media screen and (min-width: 768px) {
+        padding: 24px 2rem;
+    }
+
+    @media screen and (min-width: 1280px) {
+        padding: 10px 1.5rem;
+    }
+}
+
+.placeholder-wrapper {
+    position: relative;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.board {
+    @extend %column-direction;
+    height: 100%;
+    width: 100%;
+}
+
+.board-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-primary-cl);
+}
+
+.columns-wrapper {
+    height: 100%;
+    overflow: auto;
+
+    &::-webkit-scrollbar,
+    &::-webkit-scrollbar-thumb {
+        border-radius: 0.5rem;
+    }
+
+    &::-webkit-scrollbar {
+        width: 0.5em;
+        height: 12px;
+        background-color: var(--primary-bg-cl);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--gl-medium-gray-cl);
+    }
+}

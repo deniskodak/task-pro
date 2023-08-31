@@ -29,6 +29,10 @@ export const tasksReducer = createReducer(
   on(tasksActions.fetchProjects, (state, action) => ({
     ...state,
     projects: action.projects,
+  })),
+  on(tasksActions.setActiveBoard, (state, action) => ({
+    ...state, 
+    selectedBoard: action.board
   }))
   // on(tasksActions.addBoard, (state, action) => {
   //   const copiedBoards = state.boards.slice();

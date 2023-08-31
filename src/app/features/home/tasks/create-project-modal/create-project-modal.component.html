@@ -1,0 +1,23 @@
+<app-modal
+  [title]="(isEdit ? 'Edit' : 'Add') + ' column'"
+  [modalKey]="modalKey"
+>
+  <form #form="ngForm" (ngSubmit)="onSubmit()">
+    <app-input-feedback
+      [isShown]="!titleRef.valid && titleRef.touched"
+      feedback="Title is required"
+    >
+      <input
+        class="input"
+        placeholder="Title"
+        name="title"
+        required
+        [(ngModel)]="title"
+        #titleRef="ngModel"
+        trimDirective
+      />
+    </app-input-feedback>
+
+    <button class="button" [@vibrateAnimation]="vibrateState">Add</button>
+  </form>
+</app-modal>

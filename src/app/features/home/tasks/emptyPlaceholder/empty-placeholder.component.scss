@@ -1,0 +1,14 @@
+.empty-placeholder {
+    color: var(--text-secondary-cl);
+
+    .empty-placeholder-link {
+        color: var(--primary-cl);
+        transition: color var(--gl-transition);
+        cursor: pointer;
+        
+        &:hover,
+        &:focus {
+            color: var(--accent-cl);
+        }
+    }
+}
