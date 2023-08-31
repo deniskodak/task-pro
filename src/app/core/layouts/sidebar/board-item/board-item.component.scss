@@ -1,0 +1,33 @@
+@import '../../../../../styles/mixin.scss';
+
+.board-item {
+    @extend %align-vertical;
+
+    padding: 20px 14px;
+    color: var(--text-secondary-cl);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.board-item-title {
+    margin-right: auto;
+}
+
+.board-item-icon {
+    width: 1rem;
+    height: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--gl-transition-cl);
+
+    &:hover,
+    &:focus {
+        color: var(--primary-cl);
+        filter: drop-shadow(0px 0px 5px var(--primary-cl));
+
+    }
+
+    &.edit {
+        margin-right: 0.5rem;
+    }
+}

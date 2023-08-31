@@ -1,0 +1,33 @@
+@mixin highDpiBackground($imageFileName) {
+    $imagePath: "/assets/#{$imageFileName}";
+
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.3),
+        only screen and (min--moz-device-pixel-ratio: 1.3),
+        only screen and (-o-min-device-pixel-ratio: 2.6/2),
+        only screen and (min-device-pixel-ratio: 1.3),
+        only screen and (min-resolution: 124.8dpi),
+        only screen and (min-resolution: 1.3dppx) {
+        background-image: url("#{$imagePath}");
+    }
+}
+
+%commonBefore {
+    display: block;
+    content: "";
+    width: 100%;
+}
+
+%align-vertical {
+    display: flex;
+    align-items: center;
+}
+
+@mixin backdrop($z-index) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(15, 15, 15, 0.311);
+    z-index: $z-index;
+}

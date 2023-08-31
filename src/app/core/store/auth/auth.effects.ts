@@ -1,19 +1,17 @@
+import { NotificationComponent } from './../../../shared/notification/notification.component';
 import { AppRoutes } from './../../../routes';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { authActions } from './auth.actions';
 import { Router } from '@angular/router';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
-import { catchError, switchMap, tap, map, take } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, switchMap, tap, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { User } from 'src/app/core/models/user.model';
 import { Action } from '@ngrx/store';
 import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface AuthResponseData {
   kind: string;
@@ -50,6 +48,7 @@ export class AuthEffects {
     private actions$: Actions,
     private http: HttpClient,
     private router: Router,
+    private dialog: MatDialog,
     private authService: AuthService
   ) {}
 
@@ -141,11 +140,27 @@ export class AuthEffects {
   authLogout = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(authActions.autoLogout),
+        ofType(authActions.logout, authActions.autoLogout),
         tap(() => {
           this.authService.clearLogoutTimer();
           localStorage.removeItem('userData');
           this.router.navigate(['/', AppRoutes.Auth, AppRoutes.Login]);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  onFail = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(authActions.authFail),
+        tap((action) => {
+          const ref = this.dialog.open(NotificationComponent, {
+            data: { title: 'Auth error', description: action.message },
+          });
+          setTimeout(() => {
+            ref.close();
+          }, 3000);
         })
       ),
     { dispatch: false }

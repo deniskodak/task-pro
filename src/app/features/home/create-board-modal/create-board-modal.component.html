@@ -1,0 +1,17 @@
+<app-modal [title]="(isEdit ? 'Edit' : 'New') + ' Board'" [modalKey]="modalKey">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input class="input" placeholder="Title" name="title" formControlName="title"/>
+    <ul class="icon-list">
+      <li class="icon-list-item" *ngFor="let icon of iconsList">
+        <svg-icon [icon]="icon" class="icon"></svg-icon>
+      </li>
+    </ul>
+    <mat-icon svgIcon="puzzle"></mat-icon>
+    <ul>
+      <li *ngFor="let item of previewImages$ | async">
+        <!-- <img [src]="(item.getDownloadURL())" > -->
+      </li>
+    </ul>
+    <button class="button">{{ isEdit ? "Edit" : "Create" }}</button>
+  </form>
+</app-modal>

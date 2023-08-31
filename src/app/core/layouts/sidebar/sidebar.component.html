@@ -1,0 +1,19 @@
+<aside>
+  <div class="sidebar-top">
+    <h1><app-logo [size]="logoSize" class="logo"></app-logo> Task Pro</h1>
+    <p class="sidebar-subtitle">My boards</p>
+    <div class="new-board-wrapper">
+      <app-new-board></app-new-board>
+    </div>
+    <div>
+      <app-board-list></app-board-list>
+    </div>
+  </div>
+
+  <div class="sidebar-bottom">
+    <app-faq-info></app-faq-info>
+    <a class="logout-link" (click)="onLogout()"
+      ><mat-icon class="logout-icon">exit_to_app</mat-icon>Log out</a
+    >
+  </div>
+</aside>

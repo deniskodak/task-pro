@@ -12,6 +12,19 @@ export enum VibrateStates {
   Active = 'active',
 }
 
+export class VibrateClass {
+  vibrateState = VibrateStates.Inactive;
+
+  toggleVibrate() {
+    if (this.vibrateState === VibrateStates.Active) return;
+
+    this.vibrateState = VibrateStates.Active;
+    setTimeout(() => {
+      this.vibrateState = VibrateStates.Inactive;
+    }, 300);
+  }
+}
+
 export const vibrate = [
   trigger('vibrateAnimation', [
     state(

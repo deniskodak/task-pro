@@ -1,18 +1,21 @@
-<div [ngSwitch]="layoutType$ | async">
+<main>
+  <div
+    class="sidebar-wrapper"
+    [ngClass]="{
+      shown: (sidebarShown$ | async),
+      static: (layoutType$ | async) === breakpoints.Web
+    }"
+  >
+    <app-sidebar></app-sidebar>
+  </div>
+  <div
+    (click)="onBackdropClick()"
+    class="sidebar-backdrop"
+    *ngIf="(sidebarShown$ | async) && (layoutType$ | async) !== breakpoints.Web"
+  ></div>
+  <div class="content">
     <app-header></app-header>
-  <div *ngSwitchCase="breakpoints.Web">
-    <main class="web" automation-id="web">
-      <div class="content"></div>
-    </main>
   </div>
-  <div *ngSwitchCase="breakpoints.Tablet">
-    <main class="tablet" automation-id="tablet">
-      <div class="content"></div>    </main>
-  </div>
-  <div *ngSwitchDefault>
-    <div>
-      <main class="handset" automation-id="handset">
-        <div class="content"></div>      </main>
-    </div>
-  </div>
-</div>
+  <app-create-board-modal></app-create-board-modal>
+  <app-need-help-modal></app-need-help-modal>
+</main>

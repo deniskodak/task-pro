@@ -1,0 +1,16 @@
+<div class="backdrop" *ngIf="isShown" (click)="onHide()">
+  <div
+    [@smoothAppear]
+    class="dialog-body"
+    [ngClass]="{ large: isLarge }"
+    aria-modal="true"
+    tabindex="-1"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="dialog-header">
+      <h2 class="dialog-title">{{ title }}</h2>
+      <mat-icon class="dialog-close-icon" (click)="onHide()">close</mat-icon>
+    </div>
+    <div class="dialog-content"><ng-content></ng-content></div>
+  </div>
+</div>

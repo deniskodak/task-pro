@@ -1,0 +1,39 @@
+.burger {
+    display: flex;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        animation: wobble-hor-bottom 0.5s both;
+    }
+}
+
+@keyframes wobble-hor-bottom {
+    0%,
+    100% {
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+    }
+    15% {
+        -webkit-transform: translateX(-3px) rotate(-6deg);
+        transform: translateX(-3px) rotate(-6deg);
+    }
+    30% {
+        -webkit-transform: translateX(15px) rotate(6deg);
+        transform: translateX(2px) rotate(6deg);
+    }
+    45% {
+        -webkit-transform: translateX(-15px) rotate(-3.6deg);
+        transform: translateX(2px) rotate(-3.6deg);
+    }
+    60% {
+        -webkit-transform: translateX(9px) rotate(2.4deg);
+        transform: translateX(1px) rotate(2.4deg);
+    }
+    75% {
+        -webkit-transform: translateX(-0.5px) rotate(-1.2deg);
+        transform: translateX(-0.5px) rotate(-1.2deg);
+    }
+}

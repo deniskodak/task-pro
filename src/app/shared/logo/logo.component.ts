@@ -1,5 +1,6 @@
+import { NgClass } from '@angular/common';
 import { IconService } from './../../core/services/icon.service';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 const logoSvg = `
@@ -8,16 +9,36 @@ const logoSvg = `
 </svg>
 `;
 
+export enum LogoSizes {
+  Default = 'default',
+  Small = 'small',
+}
+
 @Component({
   standalone: true,
   selector: 'app-logo',
-  imports: [MatIconModule],
-  template: `<span class="logo">
-    <mat-icon svgIcon="logo" aria-hidden="false" aria-label="logo"></mat-icon>
+  imports: [MatIconModule, NgClass],
+  template: `<span
+    class="logo"
+    [ngClass]="{
+      small: size === logoSizes.Small,
+      default: size === logoSizes.Default
+    }"
+  >
+    <mat-icon
+      class="logo-icon"
+      svgIcon="logo"
+      aria-hidden="false"
+      aria-label="logo"
+    ></mat-icon>
   </span>`,
   styleUrls: ['./logo.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoComponent {
+  logoSizes = LogoSizes;
+  @Input() size: LogoSizes = LogoSizes.Default;
+
   constructor(private iconService: IconService) {
     this.iconService.add('logo', logoSvg);
   }

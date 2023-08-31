@@ -1,0 +1,47 @@
+@import '../../../styles/mixin.scss';
+
+.backdrop {
+    @include backdrop(100);
+}
+
+.dialog-header {
+    margin-bottom: 1.5rem;
+    color: var(--text-primary-cl);
+}
+
+.dialog-title {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.dialog-close-icon {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    cursor: pointer;
+    transition: transform var(--gl-transition);
+
+    &:hover,
+    &:focus {
+        transform: scale(1.1);
+    }
+}
+
+.dialog-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 1.5rem;
+    background-color: var(--primary-bg-cl);
+    border-radius: var(--gl-border-radius);
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 350px;
+    max-height: 80vh;
+    overflow: auto;
+
+    &.large {
+        max-width: 400px;
+    }
+}

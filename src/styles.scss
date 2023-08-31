@@ -2,9 +2,12 @@
     --gl-black-cl: #161616;
     --gl-white-cl: #fff;
     --gl-border-radius: 0.5rem;
-    --gl-gray-cl: #ffffff30;
+    --gl-gray-cl: rgba(255, 255, 255, 0.3);
+    --gl-medium-gray-cl: rgba(255, 255, 255, 0.5);
+    --gl-light-gray-cl: rgba(255, 255, 255, 0.1);
     --gl-error-cl: rgb(152, 39, 39);
     --gl-header-height: 60px;
+    --gl-transition: 0.25s linear;
 }
 
 html * {
@@ -12,7 +15,7 @@ html * {
 }
 
 .mat-typography,
-.mat-typography * {
+.mat-typography *:not(.material-icons) {
     font-family: Poppins, "Helvetica Neue", sans-serif;
     letter-spacing: -0.02rem;
 }
@@ -26,14 +29,22 @@ body {
     font-family: Poppins, "Helvetica Neue", sans-serif;
 }
 
+a {
+    cursor: pointer;
+}
+
 .input,
 .button {
     padding: 14px 18px;
     border-radius: var(--gl-border-radius);
     width: 100%;
-    transition: all 0.25s linear;
+    transition: all var(--gl-transition);
     outline: none;
     font-size: 14px;
+}
+
+.button.small {
+    width: auto;
 }
 
 .input {
@@ -62,11 +73,13 @@ body {
 .button {
     font-weight: 500;
     background-color: var(--primary-cl);
+    border: 1px solid var(--primary-cl);
     cursor: pointer;
     color: var(--button-cl);
 
     &:focus,
     &:hover {
         background-color: var(--accent-cl);
+        border-color: var(--accent-cl);
     }
 }

@@ -1,9 +1,8 @@
-import { environment } from './../../../environments/environment';
 import { Store } from '@ngrx/store';
 import { authActions } from './../../core/store/auth/auth.actions';
 import {
   vibrate,
-  VibrateStates,
+  VibrateClass,
 } from './../../shared/animations/vibrate.animation';
 import { smoothAppear } from './../../shared/animations/smoth-appear.animation';
 import { LinearComponent } from './../../core/layouts/linear/linear.component';
@@ -18,7 +17,6 @@ import {
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { InputFeedbackComponent } from 'src/app/shared/input-feedback/input-feedback.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -34,15 +32,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./auth.component.scss'],
   animations: [smoothAppear, vibrate],
 })
-export class AuthComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private store: Store,
-    private http: HttpClient
-  ) {}
+export class AuthComponent extends VibrateClass implements OnInit {
   isLogin = false;
   form: FormGroup;
-  vibrateState = VibrateStates.Inactive;
+
+  constructor(private route: ActivatedRoute, private store: Store) {
+    super();
+  }
 
   ngOnInit(): void {
     this.route.data.subscribe((data) => {
@@ -62,15 +58,6 @@ export class AuthComponent implements OnInit {
       password: new FormControl('', [Validators.required]),
       ...nameControl,
     });
-  }
-
-  private toggleVibrate() {
-    if (this.vibrateState === VibrateStates.Active) return;
-
-    this.vibrateState = VibrateStates.Active;
-    setTimeout(() => {
-      this.vibrateState = VibrateStates.Inactive;
-    }, 300);
   }
 
   onSubmit() {

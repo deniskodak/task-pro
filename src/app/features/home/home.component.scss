@@ -1,10 +1,36 @@
+@import '../../../styles/mixin.scss';
+
 main {
     display: flex;
-    flex-direction: column;
+    background-color: var(--secondary-bg-cl);
+    width: 100%;
+    height: 100vh;
 }
 
 .content {
-    background-color: var(--secondary-bg-cl);
-    width: 100%;
-    height: calc(100vh - var(--gl-header-height));
+    flex: 1;
+}
+
+.sidebar-wrapper {
+    position: relative;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+
+    &:not(.static) {
+        position: absolute;
+        z-index: 100;
+    }
+
+    &:not(.static):not(.shown) {
+        transform: translateX(-100%);
+    }
+
+    &:not(.static).shown {
+        transform: translateX(0%);
+    }
+
+}
+
+.sidebar-backdrop {
+    @include backdrop(90)
 }

@@ -1,0 +1,12 @@
+::ng-deep .notification-container {
+    .mat-mdc-dialog-surface {
+        background-color: rgb(161, 26, 26);
+    }
+
+    .mdc-dialog__title,
+    .mdc-button__label,
+    .mdc-dialog__content {
+        margin: 0;
+        color: var(--gl-white-cl);
+    }
+}

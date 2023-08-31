@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { slideIn } from '../animations/slidein.animation';
 
 @Component({
@@ -17,6 +17,7 @@ import { slideIn } from '../animations/slidein.animation';
     'span {color: var(--gl-error-cl); display: inline-block; margin-top: 0.5rem}',
   ],
   animations: [slideIn],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputFeedbackComponent {
   @Input() feedback = '';

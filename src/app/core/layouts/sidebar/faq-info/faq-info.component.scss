@@ -1,0 +1,61 @@
+@import "../../../../../styles/mixin.scss";
+
+.faq-wrapper {
+    padding: 14px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: var(--secondary-bg-cl);
+    border-radius: var(--gl-border-radius);
+    
+    .faq-text {
+        color: var(--text-primary-cl);
+        margin-bottom: 18px;
+        letter-spacing: -0.01rem;
+        
+        a {
+            color: var(--primary-cl);
+            text-decoration: none;
+            transition: color var(--gl-transition);
+
+            &:hover,
+            &:focus {
+                color: var(--accent-cl);
+            }
+        }
+    }
+
+    &::before {
+        @include highDpiBackground("cactus_2x.png");
+        @extend %commonBefore;
+
+        height: 78px;
+        margin-bottom: 14px;
+        background-position: left;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-image: url("/assets/cactus.png");
+    }
+}
+
+.faq-link {
+    display: flex;
+    align-items: center;
+    color: var(--text-primary-cl);
+
+    .help-icon {
+        line-height: 1;
+        margin-right: 0.5rem;
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+    }
+
+    &:hover,
+    &:focus {
+        color: var(--primary-cl);
+
+        .help-icon {
+            filter: drop-shadow(0px, 0px, 5px, var(--primary-cl))
+        }
+    }
+}

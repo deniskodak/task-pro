@@ -1,4 +1,5 @@
 <div class="header">
+  <app-burger (click)="onOpenSidebar()" *ngIf="(layoutType$ | async) !== breakpoints.Web"></app-burger>
   <div class="right-wrapper">
     <button mat-button [matMenuTriggerFor]="menu" class="themes-menu">
       Themes

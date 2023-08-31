@@ -1,0 +1,11 @@
+.input-wrapper {
+    display: block;
+
+    &:not(:last-of-type) {
+        margin-bottom: 14px;
+    }
+
+    &:last-of-type {
+        margin-bottom: 1.5rem;
+    }
+}

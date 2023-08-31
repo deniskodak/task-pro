@@ -38,5 +38,5 @@ export const authReducer = createReducer(
     loading: false,
   })),
   on(authActions.clearError, (state) => ({ ...state, authError: null })),
-  on(authActions.logout, () => ({ ...initialState }))
+  on(authActions.logout, () => ({ ...initialState })),
 );

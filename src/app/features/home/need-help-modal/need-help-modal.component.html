@@ -1,0 +1,35 @@
+<app-modal title="Need help" [modalKey]="modalKey" [isLarge]="true">
+  <form #f="ngForm" (submit)="onSubmit()" class="form">
+    <app-input-feedback
+      class="input-wrapper"
+      feedback="Email is required"
+      [isShown]="!emailRef.valid && emailRef.touched"
+    >
+      <input
+        class="input"
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        email
+        required
+        #emailRef="ngModel"
+        placeholder="Email address"
+      />
+    </app-input-feedback>
+    <app-input-feedback
+      class="input-wrapper"
+      feedback="Comment is required"
+      [isShown]="!commentRef.valid && commentRef.touched"
+    >
+      <textarea
+        class="input"
+        name="comment"
+        [(ngModel)]="comment"
+        required
+        #commentRef="ngModel"
+        placeholder="Comment"
+      ></textarea>
+    </app-input-feedback>
+    <button [@vibrateAnimation]="vibrateState" class="button">Send</button>
+  </form>
+</app-modal>
