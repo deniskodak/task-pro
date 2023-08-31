@@ -1,5 +1,4 @@
 import { TasksComponent } from './tasks/tasks.component';
-import { EmptyPlaceholderComponent } from './tasks/emptyPlaceholder/empty-placeholder.component';
 import { tasksBoardsSelector } from 'src/app/core/store/tasks/tasks.selectors';
 import { NeedHelpModalComponent } from './need-help-modal/need-help-modal.component';
 import { CreateBoardModalComponent } from './create-board-modal/create-board-modal.component';
@@ -10,10 +9,11 @@ import { SidebarComponent } from './../../core/layouts/sidebar/sidebar.component
 import { HeaderComponent } from './../../core/layouts/header/header.component';
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { LayoutService } from 'src/app/core/services/layout.service';
-import { DatabaseUserService } from 'src/app/core/services/database.service';
+import {
+  LayoutService,
+  Breakpoints,
+} from 'src/app/core/services/layout.service';
 import { Board } from 'src/app/core/models/board.model';
 
 @Component({
@@ -30,7 +30,6 @@ import { Board } from 'src/app/core/models/board.model';
     AsyncPipe,
     TasksComponent,
   ],
-  providers: [DatabaseUserService],
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -44,7 +43,6 @@ export class HomeComponent {
 
   constructor(
     private readonly layoutService: LayoutService,
-    private databaseUserService: DatabaseUserService,
     private store: Store,
     private sidebarService: SidebarService
   ) {}

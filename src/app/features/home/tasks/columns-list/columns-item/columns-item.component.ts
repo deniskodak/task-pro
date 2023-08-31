@@ -1,7 +1,9 @@
+import { tasksActions } from './../../../../../core/store/tasks/tasks.actions';
+import { Store } from '@ngrx/store';
 import { CREATE_PROJECT_KEY } from './../../create-project-modal/create-project-modal.component';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { MatIconModule } from '@angular/material/icon';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Project } from 'src/app/core/models/project.model';
 
 @Component({
@@ -10,11 +12,12 @@ import { Project } from 'src/app/core/models/project.model';
   selector: 'app-columns-item',
   templateUrl: './columns-item.component.html',
   styleUrls: ['./columns-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnsItemComponent {
   @Input() column: Project;
 
-  constructor(private modalService: ModalService) {}
+  constructor(private modalService: ModalService, private store: Store) {}
 
   onEdit() {
     this.modalService.setModalOptions({
@@ -23,5 +26,7 @@ export class ColumnsItemComponent {
     });
   }
 
-  onDelete() {}
+  onDelete() {
+    this.store.dispatch(tasksActions.deleteProject({ id: this.column.id }));
+  }
 }

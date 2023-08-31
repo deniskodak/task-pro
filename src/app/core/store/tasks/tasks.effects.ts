@@ -8,7 +8,7 @@ import { tasksActions } from './tasks.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { of, Observable } from 'rxjs';
+import { of, Observable, combineLatest } from 'rxjs';
 import { Board } from '../../models/board.model';
 import { Project } from '../../models/project.model';
 
@@ -95,8 +95,7 @@ export class TasksEffects {
     this.actions$.pipe(
       ofType(tasksActions.deleteBoard),
       switchMap((board) =>
-        this.store.select(tasksSelectedBoardSelector).pipe(
-          first(),
+        this.getSelectedBoard().pipe(
           map((selectedBoard) => {
             if (selectedBoard?.id === board.id) {
               return tasksActions.setActiveBoard({ board: null });
@@ -108,6 +107,7 @@ export class TasksEffects {
       )
     )
   );
+
   deleteBoard = createEffect(() =>
     this.actions$.pipe(
       ofType(tasksActions.deleteBoard),
@@ -153,16 +153,45 @@ export class TasksEffects {
     this.actions$.pipe(
       ofType(tasksActions.addProject),
       switchMap((action) =>
-        this.getSelectedBoard().pipe(
-          switchMap((board) =>
-            this.db
-              .list(`${CollectionKeys.Boards}/${board.id}`)
-              .push(action.project)
-              .then(() => {
-                return tasksActions.fetchProjectsStart();
-              })
-              .catch(() => ({ type: 'invalid' }))
-          )
+        this.getSelectedBoardIdAndProjects().pipe(
+          switchMap(({ board, projects }) => {
+            const newProjects = projects.concat([action.project]);
+            return this.updateProject(board.id, newProjects);
+          })
+        )
+      )
+    )
+  );
+
+  editProject = createEffect(() =>
+    this.actions$.pipe(
+      ofType(tasksActions.editProject),
+      switchMap((action) =>
+        this.getSelectedBoardIdAndProjects().pipe(
+          switchMap(({ board, projects }) => {
+            const newProjects = projects.map((project) =>
+              project.id === action.id
+                ? { ...project, title: action.title }
+                : project
+            );
+            return this.updateProject(board.id, newProjects);
+          })
+        )
+      )
+    )
+  );
+
+  deleteProject = createEffect(() =>
+    this.actions$.pipe(
+      ofType(tasksActions.deleteProject),
+      switchMap((action) =>
+        this.getSelectedBoardIdAndProjects().pipe(
+          switchMap(({ board, projects }) => {
+            const newProjects = projects.filter(
+              (project) => project.id !== action.id
+            );
+            return this.updateProject(board.id, newProjects);
+          })
         )
       )
     )
@@ -171,11 +200,21 @@ export class TasksEffects {
   fetchProjects = createEffect(() =>
     this.actions$.pipe(
       ofType(tasksActions.setActiveBoard),
-      filter(action => action.board !== null),
+      filter((action) => action.board !== null),
       switchMap(() => this.getProjects()),
       map((projects) => tasksActions.fetchProjects({ projects }))
     )
   );
+
+  private getSelectedBoardIdAndProjects() {
+    return this.getSelectedBoard().pipe(
+      switchMap((board) =>
+        this.getProjectsById(board.id).pipe(
+          switchMap((projects) => of({ board, projects }))
+        )
+      )
+    );
+  }
 
   private getUser() {
     return this.store.select(authUserSelector).pipe(first());
@@ -189,18 +228,29 @@ export class TasksEffects {
     return this.getListByPath(`${CollectionKeys.Users}/${user.id}/boards`);
   }
 
+  private getProjectsById(boardId) {
+    return this.getListByPath(
+      `${CollectionKeys.Boards}/${boardId}`
+    ) as Observable<Project[]>;
+  }
+
   private getProjects() {
     return this.getSelectedBoard().pipe(
-      switchMap(
-        (board) =>
-          this.getListByPath(
-            `${CollectionKeys.Boards}/${board.id}`
-          ) as Observable<Project[]>
-      )
+      switchMap((board) => this.getProjectsById(board.id))
     );
   }
 
   private getListByPath(collectionPath) {
     return this.db.list(collectionPath).valueChanges().pipe(first());
+  }
+
+  private updateProject(boardId: string, projects: Project[]) {
+    return this.db
+      .list(CollectionKeys.Boards)
+      .set(boardId, projects)
+      .then(() => {
+        return tasksActions.fetchProjects({ projects });
+      })
+      .catch(() => ({ type: 'invalid' }));
   }
 }

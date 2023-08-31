@@ -1,10 +1,11 @@
-@import '../../../../../../styles/mixin.scss';
+@import "../../../../../../styles/mixin.scss";
 
 .column-info {
     @extend %align-vertical;
     background-color: var(--primary-bg-cl);
     border-radius: var(--gl-border-radius);
     padding: 18px;
+    border: 1px solid var(--primary-bg-cl);
 }
 
 .column-title {
@@ -12,7 +13,7 @@
     font-weight: 500;
     font-size: 14px;
     margin: 0 auto 0 0;
-    line-height: 1.25;
+    line-height: 1.286;
     text-transform: capitalize;
 }
 

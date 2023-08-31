@@ -2,15 +2,16 @@
 
 .tasks {
     height: 100%;
-    padding: 14px 20px;
+    padding: 14px var(--gl-tasks-horizontal-mobile-padding);
     width: 100vw;
 
     @media screen and (min-width: 768px) {
-        padding: 24px 2rem;
+        padding: 24px var(--gl-tasks-horizontal-table-padding);
     }
 
     @media screen and (min-width: 1280px) {
-        padding: 10px 1.5rem;
+        padding: 10px var(--gl-tasks-horizontal-table-padding);
+        width: calc(100vw - var(--gl-sidebar-tablet-width))
     }
 }
 

@@ -8,10 +8,18 @@ import { ModalService } from 'src/app/core/services/modal.service';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { tasksActions } from 'src/app/core/store/tasks/tasks.actions';
 import { Project } from 'src/app/core/models/project.model';
+import { v4 } from 'uuid';
 
 export const CREATE_PROJECT_KEY = 'createProject';
 
@@ -21,6 +29,7 @@ export const CREATE_PROJECT_KEY = 'createProject';
   imports: [ModalComponent, FormsModule, InputFeedbackComponent, TrimDirective],
   templateUrl: './create-project-modal.component.html',
   styleUrls: ['./create-project-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [vibrate],
 })
 export class CreateProjectModalComponent
@@ -33,7 +42,11 @@ export class CreateProjectModalComponent
   modalKey = CREATE_PROJECT_KEY;
   isEdit = false;
   destroy$ = new Subject<void>();
-  constructor(private modalService: ModalService, private store: Store) {
+  constructor(
+    private modalService: ModalService,
+    private store: Store,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
     super();
   }
 
@@ -45,6 +58,7 @@ export class CreateProjectModalComponent
         this.column = project;
         this.isEdit = !!project;
         this.title = project?.title || '';
+        this.changeDetectorRef.detectChanges();
       });
   }
 
@@ -61,8 +75,8 @@ export class CreateProjectModalComponent
 
     const { title } = this.form.value;
     const action = this.isEdit
-      ? tasksActions.editProject({ title, id: this.column. })
-      : tasksActions.addProject({ project: new Project(title) });
+      ? tasksActions.editProject({ title, id: this.column.id })
+      : tasksActions.addProject({ project: new Project(title, v4()) });
     this.store.dispatch(action);
     this.modalService.hide();
   }

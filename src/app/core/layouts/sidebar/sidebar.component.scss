@@ -1,7 +1,7 @@
 @import "../../../../styles/mixin.scss";
 
 aside {
-    width: 225px;
+    width: var(--gl-sidebar-mobile-width);
     height: 100%;
     background-color: var(--primary-bg-cl);
     padding: 14px;
@@ -10,7 +10,7 @@ aside {
     flex-direction: column;
 
     @media screen and (min-width: 768px) {
-        width: 260px;
+        width: var(--gl-sidebar-tablet-width);
     }
 
     &::-webkit-scrollbar {
