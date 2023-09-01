@@ -1,13 +1,23 @@
 <div class="header">
-  <app-burger (click)="onOpenSidebar()" *ngIf="(layoutType$ | async) !== breakpoints.Web"></app-burger>
+  <app-burger
+    (click)="onOpenSidebar()"
+    *ngIf="(layoutType$ | async) !== breakpoints.Web"
+  ></app-burger>
   <div class="right-wrapper">
     <button mat-button [matMenuTriggerFor]="menu" class="themes-menu">
       Themes
     </button>
     <mat-menu #menu="matMenu" class="themes-dropdown dropdown">
-      <button mat-menu-item>Light</button>
-      <button mat-menu-item>Dark</button>
-      <button mat-menu-item>Violet</button>
+      <button
+        mat-menu-item
+        tabindex="1"
+        class="theme-button"
+        *ngFor="let theme of themes"
+        [ngClass]="{ active: (currTheme$ | async) === theme }"
+        (click)="onThemeClick(theme)"
+      >
+        {{ theme }}
+      </button>
     </mat-menu>
     <div class="user-info">
       <span>{{ userName }}</span>

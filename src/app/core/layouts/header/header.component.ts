@@ -1,5 +1,7 @@
+import { ThemeService } from './../../services/theme.service';
+import { ThemeKeys } from './../../../shared/config/theme.config';
 import { SidebarService } from './../../services/sidebar.service';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { NgIf, AsyncPipe, NgFor, NgClass } from '@angular/common';
 import { LayoutService } from 'src/app/core/services/layout.service';
 import { authUserSelector } from './../../store/auth/auth.selectors';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
@@ -18,7 +20,15 @@ import { Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   standalone: true,
-  imports: [MatMenuModule, MatButtonModule, BurgerComponent, NgIf, AsyncPipe],
+  imports: [
+    MatMenuModule,
+    MatButtonModule,
+    BurgerComponent,
+    NgIf,
+    AsyncPipe,
+    NgFor,
+    NgClass,
+  ],
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
@@ -27,13 +37,16 @@ import { Breakpoints } from '@angular/cdk/layout';
 export class HeaderComponent implements OnInit, OnDestroy {
   userName = '';
   layoutType$!: Observable<string>;
+  themes = [ThemeKeys.Light, ThemeKeys.Dark, ThemeKeys.Violet];
   readonly breakpoints = Breakpoints;
   destroy$ = new Subject<void>();
+  currTheme$: Observable<ThemeKeys>;
 
   constructor(
     private store: Store,
     private layoutService: LayoutService,
     private sidebarService: SidebarService,
+    private themeService: ThemeService,
     private changeDetectionRef: ChangeDetectorRef
   ) {}
 
@@ -48,6 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.userName = name;
       });
 
+    this.currTheme$ = this.themeService.currTheme$;
     this.layoutType$ = this.layoutService.layoutType$.pipe(
       takeUntil(this.destroy$)
     );
@@ -55,6 +69,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onOpenSidebar() {
     this.sidebarService.show();
+  }
+
+  onThemeClick(theme: ThemeKeys) {
+    this.themeService.setTheme(theme);
   }
 
   ngOnDestroy(): void {

@@ -5,7 +5,7 @@
     padding: 14px 4px 14px 0;
     border-top: 1px solid;
     border-bottom: 1px solid;
-    border-color: var(--gl-light-gray-cl);
+    border-color: var(--sidebar-create-board-border-cl);
 }
 
 .new-board-text {
@@ -15,34 +15,5 @@
 
     @media screen and (min-width: 768px) {
         width: 35%;
-    }
-}
-
-
-.button {
-    position: relative;
-    padding: 16px 18px;
-
-    &::before,
-    &::after {
-        position: absolute;
-        display: block;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: var(--primary-bg-cl);
-        content: '';
-        transform-origin: center;
-        border-radius: var(--gl-border-radius);
-    }
-
-    &::before {
-        height: 13px;
-        width: 2px;
-    }
-
-    &::after {
-        width: 13px;
-        height: 2px;
     }
 }

@@ -2,6 +2,7 @@ import { authActions } from 'src/app/core/store/auth/auth.actions';
 import { RouterModule } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { ThemeService } from './core/services/theme.service';
 
 @Component({
   standalone: true,
@@ -12,9 +13,10 @@ import { Store } from '@ngrx/store';
 })
 export class AppComponent implements OnInit {
   title = 'task-pro';
-  constructor(private store: Store) {}
+  constructor(private store: Store, private themeService: ThemeService) {}
 
   ngOnInit(): void {
-    this.store.dispatch(authActions.autoLogin())
+    this.themeService.init();
+    this.store.dispatch(authActions.autoLogin());
   }
 }

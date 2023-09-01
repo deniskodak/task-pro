@@ -31,7 +31,6 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles/variables/light-green.scss",
               "src/styles/mixin.scss",
               "src/styles.scss"
             ],

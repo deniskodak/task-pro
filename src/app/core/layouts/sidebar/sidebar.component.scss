@@ -3,7 +3,7 @@
 aside {
     width: var(--gl-sidebar-mobile-width);
     height: 100%;
-    background-color: var(--primary-bg-cl);
+    background-color: var(--sidebar-bg-cl);
     padding: 14px;
     overflow: auto;
     display: flex;
@@ -16,7 +16,8 @@ aside {
     &::-webkit-scrollbar {
         width: 0.5em;
         height: 0.5em;
-        background-color: var(--gl-medium-gray-cl);
+        border-radius: 0.5rem;
+        background-color: var(--scroll-color);
     }
 
     &::-webkit-scrollbar-thumb {
@@ -44,7 +45,7 @@ h1 {
 }
 
 .sidebar-subtitle {
-    color: var(--gl-medium-gray-cl);
+    color: var(--text-third-cl);
     font-size: 12px;
     font-weight: 400;
     margin-bottom: 0.5rem;
@@ -66,6 +67,12 @@ h1 {
     font-weight: 500;
     margin-top: 24px;
     padding: 0 10px;
+    transition: all var(--gl-transition);
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
 
     .logout-icon {
         width: 2rem;
@@ -73,10 +80,6 @@ h1 {
         font-size: 2rem;
         margin-right: 14px;
         transition: color var(--gl-transition);
-    }
-
-    &:hover .logout-icon,
-    &:focus .logout-icon {
-        color: var(--primary-cl);
+        color: var(--sidebar-board-item-after-cl);
     }
 }

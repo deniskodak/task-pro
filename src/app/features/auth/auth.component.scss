@@ -7,7 +7,7 @@
     transform: translate(-50%, -50%);
 
     padding: 1.5rem;
-    background-color: var(--gl-black-cl);
+    background-color: var(--text-forth-cl);
     border-radius: var(--gl-border-radius);
 
     @media screen and (min-width: 768px) {
@@ -23,21 +23,26 @@
 
 .auth-link {
     text-decoration: none;
-    color: var(--gl-gray-cl);
+    color: var(--primary-bg-cl);
     transition: color 0.25s linear;
+    opacity: 0.6;
 
     &:not(:last-child) {
         margin-right: 14px;
     }
 
     &.active {
-        color: var(--gl-white-cl);
+        opacity: 1;
     }
 }
 
 .input-wrapper:not(:last-child) {
     display: block;
     margin-bottom: 14px;
+}
+
+.input {
+    color: var(--auth-input-cl);
 }
 
 .inputs {

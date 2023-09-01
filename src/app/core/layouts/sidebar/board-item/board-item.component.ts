@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { tasksActions } from './../../../store/tasks/tasks.actions';
 import { Store } from '@ngrx/store';
 import { ModalService } from 'src/app/core/services/modal.service';
@@ -8,7 +8,7 @@ import { Board } from 'src/app/core/models/board.model';
 import { CREATE_BOARD_KEY } from 'src/app/features/home/create-board-modal/create-board-modal.component';
 @Component({
   standalone: true,
-  imports: [MatIconModule, NgClass],
+  imports: [MatIconModule, NgClass, NgIf],
   selector: 'app-board-item',
   templateUrl: './board-item.component.html',
   styleUrls: ['./board-item.component.scss'],

@@ -4,6 +4,7 @@
     background-color: var(--primary-bg-cl);
     height: 60px;
     padding: 14px 20px;
+    color: var(--text-forth-cl);
 
     .themes-menu {
         color: var(--text-secondary-cl);
@@ -20,9 +21,12 @@
     button {
         color: var(--text-secondary-cl);
         min-height: auto;
+        font-weight: 500;
 
-        &:hover, 
-        &:focus {
+        &:hover,
+        &:focus,
+        &.active {
+            background-color: transparent;
             color: var(--primary-cl);
         }
 
@@ -41,10 +45,10 @@
 .user-info {
     display: flex;
     align-items: center;
+    font-weight: 500;
 
     span {
         margin-right: 0.5rem;
-        color: var(--text-primary-cl);
     }
 }
 
@@ -52,5 +56,5 @@
     height: 32px;
     width: 32px;
     border-radius: var(--gl-border-radius);
-    background-color: aqua;
+    background-color: var(--primary-cl);
 }

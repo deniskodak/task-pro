@@ -1,4 +1,4 @@
-@import '../../../styles/mixin.scss';
+@import "../../../styles/mixin.scss";
 
 .welcome-wrapper {
     position: absolute;
@@ -6,7 +6,7 @@
     left: 50%;
     width: calc(100% - 2.5rem);
     transform: translate(-50%, -50%);
-    color: var(--gl-black-cl);
+    color: var(--text-primary-cl);
     text-align: center;
     font-size: 14px;
 
@@ -23,7 +23,7 @@
     }
 
     &:before {
-        @include highDpiBackground('welcome/welcome_bg_2x.png');
+        @include highDpiBackground("welcome/welcome_bg_2x.png");
         @extend %commonBefore;
 
         position: relative;
@@ -68,25 +68,28 @@
     }
 }
 
-.welcome-signup,
-.welcome-login {
-    width: 100%;
-    border-radius: var(--gl-border-radius);
-    font-weight: 500;
-    padding: 14px;
-    border: none;
+.welcome-signup {
+    background-color: var(--text-forth-cl);
+    border: var(--text-forth-cl);
+    color: var(--primary-bg-cl);
 
-    &:hover {
-        cursor: pointer;
+    &:hover,
+    &:focus {
+        background-color: var(--primary-bg-cl);
+        border: var(--primary-bg-cl);
+        color: var(--text-forth-cl);
     }
 }
 
-.welcome-signup {
-    background-color: var(--gl-black-cl);
-    color: var(--gl-white-cl);
-}
-
 .welcome-login {
-    color: var(--gl-black-cl);
     background-color: transparent;
+    border: transparent;
+    color: var(--primary-bg-cl);
+
+    &:hover,
+    &:focus {
+    background-color: transparent;
+    border: transparent;
+        color: var(--text-forth-cl);
+    }
 }

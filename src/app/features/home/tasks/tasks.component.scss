@@ -32,7 +32,7 @@
     margin-bottom: 10px;
     font-size: 18px;
     font-weight: 500;
-    color: var(--text-primary-cl);
+    color: var(--text-forth-cl);
 }
 
 .columns-wrapper {
@@ -51,6 +51,6 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: var(--gl-medium-gray-cl);
+        background-color: var(--scroll-color);
     }
 }

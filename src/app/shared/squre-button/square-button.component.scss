@@ -4,12 +4,14 @@ button {
     position: relative;
     height: 28px;
     width: 28px;
-    border-radius: var(--gl-border-radius);
+    border-radius: 6px;
     border-style: solid;
     outline: none;
     transition: all var(--gl-transition);
     cursor: pointer;
-    
+    background-color: var(--square-button-bg-cl);
+    border-color: var(--square-button-bg-cl);
+
     &::after,
     &::before {
         @extend %commonBefore;
@@ -31,13 +33,61 @@ button {
         height: 2px;
     }
 
-    &.light {
-        background-color: var(--text-primary-cl);
-        border-color: var(--text-primary-cl);
+    &::after,
+    &::before {
+        background-color: var(--square-button-after-cl);
+    }
+
+    &.colored {
+        background-color: var(--square-button-colored-bg-cl);
+        border-color: var(--square-button-colored-bg-cl);
+
+        &:hover,
+        &:focus {
+            background-color: var(--square-button-colored-bg-hover-cl);
+            border-color: var(--square-button-colored-bg-hover-cl);
+        }
 
         &::after,
         &::before {
-            background-color: var(--primary-bg-cl);
+            background-color: var(--square-button-colored-after-cl);
         }
+
+        &::before {
+            height: 13px;
+        }
+
+        &::after {
+            width: 13px;
+        }
+    }
+
+    &.reversed {
+        background-color: var(--square-button-reversed-bg-cl);
+        border-color: var(--square-button-reversed-bg-cl);
+
+        &:hover,
+        &:focus {
+            background-color: var(--square-button-reversed-bg-cl);
+            border-color: var(--square-button-reversed-bg-cl);
+        }
+
+        &::after,
+        &::before {
+            background-color: var(--square-button-reversed-after-cl);
+        }
+
+        &::before {
+            height: 13px;
+        }
+
+        &::after {
+            width: 13px;
+        }
+    }
+
+    &.large {
+        height: 36px;
+        width: 40px;
     }
 }

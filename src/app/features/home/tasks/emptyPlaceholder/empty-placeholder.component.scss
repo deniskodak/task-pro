@@ -1,9 +1,10 @@
 .empty-placeholder {
-    color: var(--text-secondary-cl);
-
+    color: var(--empty-placeholder-text-cl);
+    transition: color var(--gl-transition);
+    
     .empty-placeholder-link {
         color: var(--primary-cl);
-        transition: color var(--gl-transition);
+        transition: inherit;
         cursor: pointer;
         
         &:hover,

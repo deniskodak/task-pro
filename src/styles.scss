@@ -1,3 +1,5 @@
+@import './styles/mixin.scss';
+
 :root {
     --gl-black-cl: #161616;
     --gl-white-cl: #fff;
@@ -61,15 +63,15 @@ ul {
 }
 
 .input {
-    border: 1px solid var(--input-border-cl);
+    border: 1px solid var(--primary-cl);
     background: transparent;
-    color: var(--input-text-cl);
+    color: var(--text-forth-cl);
+    opacity: 0.6;
 
     &:hover,
     &:focus,
     &:not(:placeholder-shown) {
-        border-color: var(--primary-cl);
-        color: var(--input-text-hover-cl);
+        opacity: 1;
     }
 
     &.ng-touched.ng-invalid {
@@ -78,7 +80,6 @@ ul {
         &:hover,
         &:focus {
             border-color: var(--primary-cl);
-            color: var(--input-text-hover-cl);
         }
     }
 }
@@ -88,7 +89,7 @@ ul {
     background-color: var(--primary-cl);
     border: 1px solid var(--primary-cl);
     cursor: pointer;
-    color: var(--button-cl);
+    color: var(--button-text-cl);
 
     &:focus,
     &:hover {
@@ -100,13 +101,24 @@ ul {
         background-color: var(--primary-bg-cl);
         border: 1px solid var(--primary-bg-cl);
 
-        color: var(--text-primary-cl);
+        color: var(--text-forth-cl);
 
         &:focus,
         &:hover {
-            background-color: var(--text-primary-cl);
-            border-color: var(--text-primary-cl);
+            background-color: var(--text-forth-cl);
+            border-color: var(--text-forth-cl);
             color: var(--primary-bg-cl);
         }
+    }
+
+    &.withIcon {
+        @extend %align-full;
+
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    app-square-button {
+        margin-right: 0.5rem;
     }
 }

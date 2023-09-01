@@ -1,11 +1,6 @@
-@import "../../../../../../styles/mixin.scss";
-
 .button {
-    @extend %align-full;
+    padding-top: 14px;
+    padding-bottom: 14px;
     line-height: 1;
     border: none;
-    
-    app-square-button {
-        margin-right: 0.5rem;
-    }
 }

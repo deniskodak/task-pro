@@ -1,12 +1,27 @@
+import { InputFeedbackComponent } from './../../../shared/input-feedback/input-feedback.component';
+import { SquareButtonComponent } from 'src/app/shared/squre-button/squre-button.component';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { tasksActions } from './../../../core/store/tasks/tasks.actions';
 import { Store } from '@ngrx/store';
 import { Board } from './../../../core/models/board.model';
-import { map, Observable, Subject, takeUntil } from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  Observable,
+  Subject,
+  takeUntil,
+} from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { IconService } from './../../../core/services/icon.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import {
   SpriteIcons,
   SvgIconComponent,
@@ -14,7 +29,12 @@ import {
 import { NgForOf, AsyncPipe } from '@angular/common';
 import { IconSpriteModule } from 'ng-svg-icon-sprite';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { v4 } from 'uuid';
 import { trimValidator } from 'src/app/shared/validators/trim.validator';
 
@@ -42,9 +62,12 @@ export const CREATE_BOARD_KEY = 'createBoard';
     MatIconModule,
     AsyncPipe,
     ReactiveFormsModule,
+    SquareButtonComponent,
+    InputFeedbackComponent,
   ],
   templateUrl: './create-board-modal.component.html',
   styleUrls: ['./create-board-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateBoardModalComponent implements OnInit, OnDestroy {
   board: Board = null;
@@ -66,18 +89,24 @@ export class CreateBoardModalComponent implements OnInit, OnDestroy {
     private iconService: IconService,
     private modalService: ModalService,
     private store: Store,
-    private fs: AngularFireStorage
+    private fs: AngularFireStorage,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.initForm();
 
     this.modalService.modalOptions$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(this.modalService.filterOptions(CREATE_BOARD_KEY)),
+        distinctUntilChanged()
+      )
       .subscribe((options) => {
         this.board = options ? options['board'] : null;
         this.isEdit = Boolean(this.board);
         this.initForm();
+        this.changeDetectorRef.detectChanges();
       });
 
     this.iconService.addPath('puzzle', 'assets/icons/puzzle.svg');
@@ -110,7 +139,7 @@ export class CreateBoardModalComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if(!this.form.valid) return 
+    if (!this.form.valid) return;
 
     const { title, iconName, backgroundImg } = this.form.value;
     const boardId = this.board?.id || v4();
@@ -119,6 +148,10 @@ export class CreateBoardModalComponent implements OnInit, OnDestroy {
       ? tasksActions.editBoard({ board })
       : tasksActions.addBoard({ board });
     this.store.dispatch(action);
-    this.modalService.hide()
+    this.modalService.hide();
+  }
+
+  isFieldValid(fieldName) {
+    return !this.form.get(fieldName).valid && this.form.get(fieldName).touched;
   }
 }

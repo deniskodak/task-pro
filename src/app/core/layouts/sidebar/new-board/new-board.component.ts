@@ -1,8 +1,10 @@
+import { SquareButtonComponent } from './../../../../shared/squre-button/squre-button.component';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CREATE_BOARD_KEY } from 'src/app/features/home/create-board-modal/create-board-modal.component';
 @Component({
   standalone: true,
+  imports: [SquareButtonComponent],
   selector: 'app-new-board',
   templateUrl: './new-board.component.html',
   styleUrls: ['./new-board.component.scss'],

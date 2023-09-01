@@ -1,6 +1,8 @@
 <app-modal [title]="(isEdit ? 'Edit' : 'New') + ' Board'" [modalKey]="modalKey">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <input class="input" placeholder="Title" name="title" formControlName="title"/>
+    <app-input-feedback feedback="Title is required" [isShown]="isFieldValid('title')">
+      <input class="input" placeholder="Title" name="title" formControlName="title"/>
+    </app-input-feedback>
     <ul class="icon-list">
       <li class="icon-list-item" *ngFor="let icon of iconsList">
         <svg-icon [icon]="icon" class="icon"></svg-icon>
@@ -12,6 +14,6 @@
         <!-- <img [src]="(item.getDownloadURL())" > -->
       </li>
     </ul>
-    <button class="button">{{ isEdit ? "Edit" : "Create" }}</button>
+    <button class="button withIcon"><app-square-button></app-square-button>{{ isEdit ? "Edit" : "Create" }}</button>
   </form>
 </app-modal>

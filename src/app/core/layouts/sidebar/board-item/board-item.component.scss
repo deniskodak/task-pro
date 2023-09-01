@@ -5,7 +5,7 @@
 
     position: relative;
     padding: 20px 14px;
-    color: var(--text-secondary-cl);
+    color: var(--text-third-cl);
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -27,14 +27,14 @@
     &.active,
     &:hover,
     &:focus {
-        background-color: var(--secondary-bg-cl);
+        background-color: var(--third-bg-cl);
 
         .board-item-title {
             color: var(--text-primary-cl);
         }
 
         &::after {
-            background-color: var(--primary-cl);
+            background-color: var(--sidebar-board-item-after-cl);
         }
     }
 }
