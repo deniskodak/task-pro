@@ -43,6 +43,7 @@ app-input-feedback {
 ::ng-deep {
     .mat-calendar {
         background-color: var(--primary-bg-cl);
+        border: 2px solid var(--primary-cl);
 
         .mat-calendar-header .mat-calendar-previous-button,
         .mat-calendar-header .mat-calendar-next-button,
