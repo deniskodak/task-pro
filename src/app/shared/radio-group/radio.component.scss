@@ -1,0 +1,86 @@
+.radio {
+    ::ng-deep {
+        .mdc-radio__native-control:checked + .mdc-radio__background {
+            &::before {
+                background-color: transparent;
+            }
+
+            .mdc-radio__outer-circle {
+                background-color: transparent !important;
+            }
+        }
+
+        .mat-ripple .mat-ripple-element {
+            background-color: transparent !important;
+        }
+        .mdc-radio {
+            padding: 0;
+        }
+
+        .mat-mdc-radio-touch-target,
+        input.mdc-radio__native-control {
+            width: 20px;
+            height: 20px;
+        }
+
+        .mdc-label {
+            padding-left: 0.5rem;
+        }
+    }
+
+    &.green {
+        ::ng-deep .mdc-radio__outer-circle {
+            background-color: #bedbb0;
+            border-color: #bedbb0 !important;
+        }
+
+        ::ng-deep .mdc-radio__native-control:checked + .mdc-radio__background {
+            & > .mdc-radio__inner-circle,
+            & > .mdc-radio__outer-circle {
+                border-color: #bedbb0 !important;
+            }
+        }
+    }
+
+    &.pink {
+        ::ng-deep .mdc-radio__outer-circle {
+            background-color: #e09cb5;
+            border-color: #e09cb5 !important;
+        }
+
+        ::ng-deep .mdc-radio__native-control:checked + .mdc-radio__background {
+            & > .mdc-radio__inner-circle,
+            & > .mdc-radio__outer-circle {
+                border-color: #e09cb5 !important;
+            }
+        }
+    }
+
+    &.blue {
+        ::ng-deep .mdc-radio__outer-circle {
+            background-color: #8fa1d0;
+            border-color: #8fa1d0 !important;
+        }
+
+        ::ng-deep .mdc-radio__native-control:checked + .mdc-radio__background {
+            & > .mdc-radio__inner-circle,
+            & > .mdc-radio__outer-circle {
+                border-color: #8fa1d0 !important;
+            }
+        }
+    }
+
+    &.gray {
+        ::ng-deep .mdc-radio__outer-circle {
+            background-color: var(--radio-without-priority-cl);
+            border-color: rgba(0, 0, 0, 0) !important;
+        }
+
+        ::ng-deep .mdc-radio__native-control:checked + .mdc-radio__background {
+            & > .mdc-radio__inner-circle,
+            & > .mdc-radio__outer-circle {
+                border-color: var(--radio-without-priority-cl) !important;
+            }
+        }
+    }
+}

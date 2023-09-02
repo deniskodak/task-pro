@@ -9,7 +9,7 @@
     --gl-light-gray-cl: rgba(255, 255, 255, 0.1);
     --gl-error-cl: rgb(152, 39, 39);
     --gl-header-height: 60px;
-    --gl-transition: 0.25s linear;
+    --gl-transition: 0.25s cubic-bezier(0.4, 0, 0.6, 1);
 
     --gl-sidebar-mobile-width: 225px;
     --gl-sidebar-tablet-width: 260px;

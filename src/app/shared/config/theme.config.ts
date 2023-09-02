@@ -50,6 +50,8 @@ export const THEMES = {
     'auth-input-cl': '#fff',
     // backdrop
     'backdrop-bg-cl': 'rgba(16,16,16,0.5)',
+    // radio
+    'radio-without-priority-cl': 'rgba(16,16,16,0.3)',
   },
   [ThemeKeys.Dark]: {
     'primary-cl': '#BEDBB0',
@@ -94,6 +96,8 @@ export const THEMES = {
     'auth-input-cl': '#161616',
     // backdrop
     'backdrop-bg-cl': 'rgba(255,255,255,0.5)',
+    // radio
+    'radio-without-priority-cl': 'rgba(255,255,255,0.3)',
   },
   [ThemeKeys.Violet]: {
     'primary-cl': '#5255BC',
@@ -139,5 +143,7 @@ export const THEMES = {
     'auth-input-cl': '#fff',
     // backdrop
     'backdrop-bg-cl': 'rgba(15,15,15,0.3)',
+    // radio
+    'radio-without-priority-cl': 'rgba(16,16,16,0.3)',
   },
 };
