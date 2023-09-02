@@ -1,5 +1,4 @@
 import { ColumnsListComponent } from './columns-list/columns-list.component';
-import { CreateProjectModalComponent } from './create-project-modal/create-project-modal.component';
 import {
   tasksBoardsSelector,
   tasksSelectedBoardSelector,
@@ -19,7 +18,6 @@ import { Board } from 'src/app/core/models/board.model';
     NgClass,
     NgIf,
     AsyncPipe,
-    CreateProjectModalComponent,
     NgFor,
     ColumnsListComponent,
   ],

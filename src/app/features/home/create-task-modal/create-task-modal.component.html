@@ -1,0 +1,31 @@
+<app-modal [title]="(isEdit ? 'Edit' : 'Add') + ' card'" [isShown]="true">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <app-input-feedback
+      [isShown]="!form.get('title').valid && form.get('title').touched"
+      feedback="Title is required"
+    >
+      <input
+        class="input"
+        placeholder="Title"
+        name="title"
+        formControlName="title"
+      />
+    </app-input-feedback>
+    <app-input-feedback
+      [isShown]="
+        !form.get('description').valid && form.get('description').touched
+      "
+      feedback="Description is required"
+    >
+      <textarea
+        class="input"
+        placeholder="Description"
+        name="description"
+        formControlName="description"
+      ></textarea>
+    </app-input-feedback>
+    <button class="button withIcon" [@vibrateAnimation]="vibrateState">
+      <app-square-button></app-square-button>{{ isEdit ? "Edit" : "Add" }}
+    </button>
+  </form>
+</app-modal>

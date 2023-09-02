@@ -40,7 +40,15 @@
 }
 
 .board-item-title {
+    @extend %align-vertical;
+    transition: all var(--gl-transition);
     margin-right: auto;
+
+    mat-icon {
+        @extend %board-icon;
+        
+        margin-right: 0.5rem;
+    }
 }
 
 .board-item-icon {

@@ -47,7 +47,7 @@ export class NeedHelpModalComponent extends VibrateClass implements OnInit {
         )
       )
       .subscribe(() => {
-        this.form.form.reset();
+        this.form?.form.reset();
         this.changeDetectorRef.detectChanges()
       });
   }

@@ -1,7 +1,11 @@
+import { NgSubDirective } from './../../shared/directives/sub.directive';
+import { NEED_HELP_KEY, NeedHelpModalComponent } from 'src/app/features/home/need-help-modal/need-help-modal.component';
+import { CREATE_BOARD_KEY, CreateBoardModalComponent } from 'src/app/features/home/create-board-modal/create-board-modal.component';
+import { CREATE_PROJECT_KEY, CreateProjectModalComponent } from 'src/app/features/home/create-project-modal/create-project-modal.component';
+import { CREATE_TASK_KEY, CreateTaskModalComponent } from './create-task-modal/create-task-modal.component';
+import { ModalService, Options } from 'src/app/core/services/modal.service';
 import { TasksComponent } from './tasks/tasks.component';
 import { tasksBoardsSelector } from 'src/app/core/store/tasks/tasks.selectors';
-import { NeedHelpModalComponent } from './need-help-modal/need-help-modal.component';
-import { CreateBoardModalComponent } from './create-board-modal/create-board-modal.component';
 import { tasksActions } from './../../core/store/tasks/tasks.actions';
 import { Store } from '@ngrx/store';
 import { SidebarService } from './../../core/services/sidebar.service';
@@ -16,6 +20,13 @@ import {
 } from 'src/app/core/services/layout.service';
 import { Board } from 'src/app/core/models/board.model';
 
+const MODAL_KEYS = {
+  task: CREATE_TASK_KEY,
+  project: CREATE_PROJECT_KEY,
+  board: CREATE_BOARD_KEY,
+  help: NEED_HELP_KEY,
+};
+
 @Component({
   standalone: true,
   imports: [
@@ -26,9 +37,12 @@ import { Board } from 'src/app/core/models/board.model';
     NgIf,
     CreateBoardModalComponent,
     NeedHelpModalComponent,
+    CreateProjectModalComponent,
+    CreateTaskModalComponent,
     NgIf,
     AsyncPipe,
     TasksComponent,
+    NgSubDirective
   ],
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -40,11 +54,14 @@ export class HomeComponent {
   boards$: Observable<Board[]>;
   layoutType$: Observable<string>;
   sidebarShown$: Observable<boolean>;
+  modalOptions$: Observable<Options>;
+  modalKeys = MODAL_KEYS;
 
   constructor(
     private readonly layoutService: LayoutService,
     private store: Store,
-    private sidebarService: SidebarService
+    private sidebarService: SidebarService,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +69,7 @@ export class HomeComponent {
     this.sidebarShown$ = this.sidebarService.isShown$;
     this.boards$ = this.store.select(tasksBoardsSelector);
     this.store.dispatch(tasksActions.fetchBoardsStart());
+    this.modalOptions$ = this.modalService.modalOptions$;
   }
 
   onBackdropClick() {

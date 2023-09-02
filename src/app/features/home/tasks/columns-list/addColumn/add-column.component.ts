@@ -1,7 +1,7 @@
-import { CREATE_PROJECT_KEY } from './../../create-project-modal/create-project-modal.component';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { SquareButtonComponent } from 'src/app/shared/squre-button/squre-button.component';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { CREATE_PROJECT_KEY } from '../../../create-project-modal/create-project-modal.component';
 
 @Component({
   standalone: true,

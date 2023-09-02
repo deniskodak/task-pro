@@ -1,6 +1,8 @@
+import { CREATE_TASK_KEY } from 'src/app/features/home/create-task-modal/create-task-modal.component';
+import { SquareButtonComponent } from './../../../../../shared/squre-button/squre-button.component';
 import { tasksActions } from './../../../../../core/store/tasks/tasks.actions';
 import { Store } from '@ngrx/store';
-import { CREATE_PROJECT_KEY } from './../../create-project-modal/create-project-modal.component';
+import { CREATE_PROJECT_KEY } from 'src/app/features/home/create-project-modal/create-project-modal.component';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { MatIconModule } from '@angular/material/icon';
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
@@ -8,7 +10,7 @@ import { Project } from 'src/app/core/models/project.model';
 
 @Component({
   standalone: true,
-  imports: [MatIconModule],
+  imports: [MatIconModule, SquareButtonComponent],
   selector: 'app-columns-item',
   templateUrl: './columns-item.component.html',
   styleUrls: ['./columns-item.component.scss'],
@@ -28,5 +30,9 @@ export class ColumnsItemComponent {
 
   onDelete() {
     this.store.dispatch(tasksActions.deleteProject({ id: this.column.id }));
+  }
+
+  onAddTask() {
+    this.modalService.setModalOptions({ key: CREATE_TASK_KEY });
   }
 }

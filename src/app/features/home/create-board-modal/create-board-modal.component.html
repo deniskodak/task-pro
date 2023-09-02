@@ -1,19 +1,29 @@
-<app-modal [title]="(isEdit ? 'Edit' : 'New') + ' Board'" [modalKey]="modalKey">
+<app-modal [title]="(isEdit ? 'Edit' : 'New') + ' Board'">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <app-input-feedback feedback="Title is required" [isShown]="isFieldValid('title')">
-      <input class="input" placeholder="Title" name="title" formControlName="title"/>
+    <app-input-feedback
+      feedback="Title is required"
+      [isShown]="isFieldValid('title')"
+    >
+      <input
+        class="input"
+        placeholder="Title"
+        name="title"
+        formControlName="title"
+      />
     </app-input-feedback>
+    <p class="field-label">Icons</p>
     <ul class="icon-list">
-      <li class="icon-list-item" *ngFor="let icon of iconsList">
-        <svg-icon [icon]="icon" class="icon"></svg-icon>
+      <li class="icon-list-item" [ngClass]="{active: selectedIcon === icon}" (click)="onIconClick(icon)" *ngFor="let icon of iconsList">
+        <mat-icon [svgIcon]="icon"></mat-icon>
       </li>
     </ul>
-    <mat-icon svgIcon="puzzle"></mat-icon>
     <ul>
       <li *ngFor="let item of previewImages$ | async">
         <!-- <img [src]="(item.getDownloadURL())" > -->
       </li>
     </ul>
-    <button class="button withIcon"><app-square-button></app-square-button>{{ isEdit ? "Edit" : "Create" }}</button>
+    <button class="button withIcon">
+      <app-square-button></app-square-button>{{ isEdit ? "Edit" : "Create" }}
+    </button>
   </form>
 </app-modal>

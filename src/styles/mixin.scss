@@ -32,6 +32,12 @@
     flex-direction: column;
 }
 
+%board-icon {
+    width: 18px;
+    height: 18px;
+    transition: color var(--gl-transition);
+}
+
 %primary-icon {
     width: 1rem;
     height: 1rem;
@@ -57,6 +63,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(15, 15, 15, 0.311);
+    background-color: var(--backdrop-bg-cl);
     z-index: $z-index;
 }

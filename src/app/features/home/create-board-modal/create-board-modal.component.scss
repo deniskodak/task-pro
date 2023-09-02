@@ -1,10 +1,43 @@
-.icon-list {
-    display: flex;
-    list-style: none;
+@import "../../../../styles/mixin.scss";
+
+.field-label {
+    margin-bottom: 14px;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--text-forth-cl);
 }
 
-.icon {
-    fill: var(--gl-medium-gray-cl);
-    width: 18px;
-    height: 18px;
+app-input-feedback {
+    display: block;
+}
+
+app-input-feedback,
+.icon-list {
+    margin-bottom: 1.5rem;
+}
+
+.icon-list {
+    display: flex;
+}
+
+.icon-list-item {
+    cursor: pointer;
+
+    mat-icon {
+        @extend %board-icon;
+
+        color: var(--sidebar-create-board-icon-cl);
+    }
+
+    &:not(:last-child) {
+        margin-right: 0.5rem;
+    }
+
+    &.active,
+    &:hover,
+    &:focus {
+        mat-icon {
+            color: var(--text-forth-cl);
+        }
+    }
 }

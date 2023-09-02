@@ -1,14 +1,8 @@
-import { filter } from 'rxjs/operators';
 import { SquareButtonComponent } from 'src/app/shared/squre-button/squre-button.component';
-import { TrimDirective } from './../../../../shared/directives/trim.directive';
-import {
-  VibrateClass,
-  vibrate,
-} from './../../../../shared/animations/vibrate.animation';
 import { InputFeedbackComponent } from 'src/app/shared/input-feedback/input-feedback.component';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { Store } from '@ngrx/store';
-import { Subject, takeUntil, distinctUntilChanged } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import {
   Component,
@@ -22,6 +16,11 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { tasksActions } from 'src/app/core/store/tasks/tasks.actions';
 import { Project } from 'src/app/core/models/project.model';
 import { v4 } from 'uuid';
+import {
+  vibrate,
+  VibrateClass,
+} from 'src/app/shared/animations/vibrate.animation';
+import { TrimDirective } from 'src/app/shared/directives/trim.directive';
 
 export const CREATE_PROJECT_KEY = 'createProject';
 
@@ -60,14 +59,10 @@ export class CreateProjectModalComponent
 
   ngOnInit() {
     this.modalService.modalOptions$
-      .pipe(
-        takeUntil(this.destroy$),
-        filter(this.modalService.filterOptions(CREATE_PROJECT_KEY)),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((options: { key: string; project?: Project }) => {
         const project = options?.project || null;
-        this.form.form.reset();
+        console.log(options, 'options')
         this.column = project;
         this.isEdit = !!project;
         this.title = project?.title || '';

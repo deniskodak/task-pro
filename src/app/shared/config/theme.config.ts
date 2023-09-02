@@ -30,6 +30,7 @@ export const THEMES = {
     // sidebar
     'sidebar-bg-cl': '#FCFCFC',
     'sidebar-create-board-border-cl': 'rgba(16,16,16,0.1)',
+    'sidebar-create-board-icon-cl': 'rgba(16,16,16, 0.5)',
     'sidebar-board-item-after-cl': '#BEDBB0',
     // square button
     'square-button-colored-bg-cl': '#BEDBB0',
@@ -45,7 +46,10 @@ export const THEMES = {
     'task-text-primary-cl': 'rgba(16,16,16,0.7)',
     'task-text-secondary-cl': 'rgba(16,16,16, 0.5)',
     'task-decor-cl': 'rgba(16,16,16, 0.1)',
+    // auth
     'auth-input-cl': '#fff',
+    // backdrop
+    'backdrop-bg-cl': 'rgba(16,16,16,0.5)',
   },
   [ThemeKeys.Dark]: {
     'primary-cl': '#BEDBB0',
@@ -70,13 +74,14 @@ export const THEMES = {
     // sidebar
     'sidebar-bg-cl': '#161616',
     'sidebar-create-board-border-cl': 'rgba(255,255,255,0.1)',
+    'sidebar-create-board-icon-cl': 'rgba(255,255,255, 0.5)',
     'sidebar-board-item-after-cl': '#BEDBB0',
     // square button
     'square-button-colored-bg-cl': '#BEDBB0',
     'square-button-colored-bg-hover-cl': '#9DC888',
     'square-button-colored-after-cl': '#121212',
-    'square-button-bg-cl': '#FFF',
-    'square-button-after-cl': '#161616',
+    'square-button-bg-cl': '#161616',
+    'square-button-after-cl': '#fff',
     'square-button-reversed-bg-cl': '#fff',
     'square-button-reversed-after-cl': '#161616',
     // empty placeholder
@@ -87,6 +92,8 @@ export const THEMES = {
     'task-decor-cl': 'rgba(255,255,255, 0.1)',
     // auth
     'auth-input-cl': '#161616',
+    // backdrop
+    'backdrop-bg-cl': 'rgba(255,255,255,0.5)',
   },
   [ThemeKeys.Violet]: {
     'primary-cl': '#5255BC',
@@ -112,6 +119,7 @@ export const THEMES = {
     // sidebar
     'sidebar-bg-cl': '#5255BC',
     'sidebar-create-board-border-cl': 'rgba(255,255,255,0.1)',
+    'sidebar-create-board-icon-cl': 'rgba(16,16,16, 0.5)',
     'sidebar-board-item-after-cl': '#FFFFFF',
     // square button
     'square-button-colored-bg-cl': '#B8BCFD',
@@ -129,5 +137,7 @@ export const THEMES = {
     'task-decor-cl': 'rgba(16,16,16, 0.1)',
     // auth
     'auth-input-cl': '#fff',
+    // backdrop
+    'backdrop-bg-cl': 'rgba(15,15,15,0.3)',
   },
 };

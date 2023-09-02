@@ -1,10 +1,4 @@
-import {
-  distinctUntilChanged,
-  filter,
-  Subject,
-  Observable,
-  OperatorFunction,
-} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { ShowService } from './show.service';
 import { Injectable } from '@angular/core';
 
@@ -13,13 +7,13 @@ interface modalOptions {
   [K: string]: any;
 }
 
-type Options = modalOptions | null;
+export type Options = modalOptions | null;
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModalService extends ShowService {
-  modalOptions$ = new Subject<modalOptions | null>();
+  modalOptions$ = new BehaviorSubject<modalOptions | null>(null);
 
   constructor() {
     super();
