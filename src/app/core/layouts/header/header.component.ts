@@ -2,7 +2,7 @@ import { ThemeService } from './../../services/theme.service';
 import { ThemeKeys } from './../../../shared/config/theme.config';
 import { SidebarService } from './../../services/sidebar.service';
 import { NgIf, AsyncPipe, NgFor, NgClass } from '@angular/common';
-import { LayoutService } from 'src/app/core/services/layout.service';
+import { LayoutService, Breakpoints } from 'src/app/core/services/layout.service';
 import { authUserSelector } from './../../store/auth/auth.selectors';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
 import {
@@ -16,7 +16,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
 import { BurgerComponent } from 'src/app/shared/burger/burger.component';
-import { Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   standalone: true,

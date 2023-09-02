@@ -55,8 +55,8 @@ export const CREATE_BOARD_KEY = 'createBoard';
 export class CreateBoardModalComponent implements OnInit, OnDestroy {
   board: Board = null;
   isEdit = false;
-  iconsList = boardIconList;
-  selectedIcon = '';
+  iconsList: BoardIcons[] = boardIconList;
+  selectedIcon: BoardIcons = BoardIcons.Project;
   destroy$ = new Subject<void>();
   form: FormGroup;
   previewImages$: Observable<
@@ -107,7 +107,7 @@ export class CreateBoardModalComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
-    const { name = '', iconName = '', backgroundImg = '' } = this.board || {};
+    const { name = '', iconName = BoardIcons.Project, backgroundImg = '' } = this.board || {};
     this.selectedIcon = iconName;
     this.form = new FormGroup({
       title: new FormControl(name, [Validators.required, trimValidator]),
@@ -117,11 +117,10 @@ export class CreateBoardModalComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (!this.form.valid) return;
-    const boardIcon = this.selectedIcon || BoardIcons.Project;
 
     const { title, backgroundImg } = this.form.value;
     const boardId = this.board?.id || v4();
-    const board = new Board(title.trim(), boardId, boardIcon, backgroundImg);
+    const board = new Board(title.trim(), boardId, this.selectedIcon, backgroundImg);
     const action = this.isEdit
       ? tasksActions.editBoard({ board })
       : tasksActions.addBoard({ board });

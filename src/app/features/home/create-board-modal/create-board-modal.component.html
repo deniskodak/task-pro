@@ -13,7 +13,12 @@
     </app-input-feedback>
     <p class="field-label">Icons</p>
     <ul class="icon-list">
-      <li class="icon-list-item" [ngClass]="{active: selectedIcon === icon}" (click)="onIconClick(icon)" *ngFor="let icon of iconsList">
+      <li
+        class="icon-list-item"
+        [ngClass]="{ active: selectedIcon === icon }"
+        (click)="onIconClick(icon)"
+        *ngFor="let icon of iconsList"
+      >
         <mat-icon [svgIcon]="icon"></mat-icon>
       </li>
     </ul>
