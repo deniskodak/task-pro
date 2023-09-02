@@ -9,7 +9,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import {
   vibrate,
   VibrateClass,
@@ -52,14 +57,15 @@ const priorityList = Object.values(TaskPriority);
     InputFeedbackComponent,
     ModalComponent,
     SquareButtonComponent,
+    CustomDatePipe,
+    MatRadioModule,
+    RadioComponent,
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
     MatDatepickerModule,
     MatButtonModule,
     CustomDatePipe,
-    MatRadioModule,
-    RadioComponent,
     NgFor,
   ],
   selector: 'app-create-task-modal',
@@ -77,6 +83,7 @@ export class CreateTaskModalComponent
   isEdit: boolean;
   modalOptions: Subscription;
   priorityList = priorityList;
+  minDate = new Date();
 
   constructor(
     private modalService: ModalService,
@@ -98,12 +105,20 @@ export class CreateTaskModalComponent
     this.modalOptions.unsubscribe();
   }
 
-  onSubmit() {}
+  onSubmit() {
+    if (!this.form.valid) {
+      this.form.markAllAsTouched();
+      this.toggleVibrate();
+    }
+    console.log(this.form.value);
+  }
 
   private initForm() {
     this.form = new FormGroup({
-      title: new FormControl(''),
-      description: new FormControl(''),
+      title: new FormControl('', [Validators.required]),
+      description: new FormControl('', Validators.required),
+      labelColor: new FormControl('', Validators.required),
+      deadline: new FormControl(new Date(), Validators.required),
     });
   }
 

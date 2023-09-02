@@ -12,6 +12,7 @@
       />
     </app-input-feedback>
     <app-input-feedback
+      class="description"
       [isShown]="
         !form.get('description').valid && form.get('description').touched
       "
@@ -24,17 +25,38 @@
         formControlName="description"
       ></textarea>
     </app-input-feedback>
-    <div class="field-group">
-      <label class="field-label"> Label color</label>
-      <mat-radio-group aria-label="Select an option" class="radio-group">
-        <app-radio-button *ngFor="let priority of priorityList" [theme]="getRadioTheme(priority)" [value]="priority"></app-radio-button>
+    <app-input-feedback
+      [isShown]="
+        !form.get('labelColor').valid && form.get('labelColor').touched
+      "
+      feedback="Priority is required"
+    >
+      <label class="field-label">Label color</label>
+      <mat-radio-group
+        aria-label="Select an option"
+        class="radio-group"
+        formControlName="labelColor"
+      >
+        <app-radio-button
+          *ngFor="let priority of priorityList"
+          [theme]="getRadioTheme(priority)"
+          [value]="priority"
+        ></app-radio-button>
       </mat-radio-group>
-    </div>
-    <div class="field-group">
-      <input matInput [matDatepicker]="picker" />
-      <mat-datepicker #picker></mat-datepicker>
-      <button mat-raised-button (click)="picker.open()">Open</button>
-    </div>
+    </app-input-feedback>
+    <label class="field-label">Deadline</label>
+    <input
+      class="datepicker-input"
+      matInput
+      [matDatepicker]="picker"
+      formControlName="deadline"
+      [min]="minDate"
+    />
+    <mat-datepicker #picker></mat-datepicker>
+    <a class="datepicker-trigger" (click)="picker.open()">{{
+      form.get("deadline").value | customDate
+    }}</a>
+
     <button class="button withIcon" [@vibrateAnimation]="vibrateState">
       <app-square-button></app-square-button>{{ isEdit ? "Edit" : "Add" }}
     </button>
