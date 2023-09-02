@@ -15,12 +15,26 @@
   ></div>
   <div class="content">
     <app-header></app-header>
-    <app-tasks class="tasks-wrapper"></app-tasks>
+    <app-tasks
+      *ngIf="!(loading$ | async); else loader"
+      class="tasks-wrapper"
+    ></app-tasks>
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
   </div>
   <div *ngSub="modalOptions$; let modalOptions">
-    <app-create-board-modal *ngIf="modalOptions.key === modalKeys.board"></app-create-board-modal>
-    <app-need-help-modal *ngIf="modalOptions.key === modalKeys.help"></app-need-help-modal>
-    <app-create-project-modal *ngIf="modalOptions.key === modalKeys.project"></app-create-project-modal>
-    <app-create-task-modal *ngIf="modalOptions.key === modalKeys.task"></app-create-task-modal>
+    <app-create-board-modal
+      *ngIf="modalOptions.key === modalKeys.board"
+    ></app-create-board-modal>
+    <app-need-help-modal
+      *ngIf="modalOptions.key === modalKeys.help"
+    ></app-need-help-modal>
+    <app-create-project-modal
+      *ngIf="modalOptions.key === modalKeys.project"
+    ></app-create-project-modal>
+    <app-create-task-modal
+      *ngIf="modalOptions.key === modalKeys.task"
+    ></app-create-task-modal>
   </div>
 </main>

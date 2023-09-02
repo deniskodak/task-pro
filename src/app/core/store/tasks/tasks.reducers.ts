@@ -8,12 +8,16 @@ export interface TasksState {
   boards: Board[];
   projects: Project[];
   selectedBoard: Board;
+  loadingBoards: boolean;
+  loadingProjects: boolean;
 }
 
 const initialState: TasksState = {
   boards: [],
   selectedBoard: null,
   projects: [],
+  loadingBoards: false,
+  loadingProjects: false,
 };
 
 export const tasksReducer = createReducer(
@@ -25,27 +29,20 @@ export const tasksReducer = createReducer(
     ...state,
     boards: action.boards,
     projects: [],
+    loadingBoards: false,
   })),
   on(tasksActions.fetchProjects, (state, action) => ({
     ...state,
     projects: action.projects,
+    loadingProjects: false,
   })),
   on(tasksActions.setActiveBoard, (state, action) => ({
-    ...state, 
-    selectedBoard: action.board
+    ...state,
+    selectedBoard: action.board,
+    loadingProjects: true,
+  })),
+  on(tasksActions.fetchBoardsStart, (state) => ({
+    ...state,
+    loadingBoards: true,
   }))
-  // on(tasksActions.addBoard, (state, action) => {
-  //   const copiedBoards = state.boards.slice();
-  //   copiedBoards.push(action.board);
-  //   return {
-  //     ...state,
-  //     boards: copiedBoards,
-  //   };
-  // }),
-  //   on(tasksActions.addProject, (state, action) => {
-
-  //   }),
-  //   on(tasksActions.addTask, (state, action) => ({})),
-  //   on(tasksActions.addBoard, (state, action) => {}),
-  //   on(tasksActions.addBoard, (state, action) => {})
 );

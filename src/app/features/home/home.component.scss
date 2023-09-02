@@ -40,3 +40,9 @@ main {
 .sidebar-backdrop {
     @include backdrop(90)
 }
+
+app-loader {
+    @extend %align-full;
+    height: 100%;
+    width: 100%;
+}

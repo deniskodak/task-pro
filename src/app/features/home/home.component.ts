@@ -1,3 +1,5 @@
+import { tasksLoadingProjectsSelector } from './../../core/store/tasks/tasks.selectors';
+import { LoaderComponent } from './../../shared/loader/loader.component';
 import { NgSubDirective } from './../../shared/directives/sub.directive';
 import { NEED_HELP_KEY, NeedHelpModalComponent } from 'src/app/features/home/need-help-modal/need-help-modal.component';
 import { CREATE_BOARD_KEY, CreateBoardModalComponent } from 'src/app/features/home/create-board-modal/create-board-modal.component';
@@ -42,7 +44,8 @@ const MODAL_KEYS = {
     NgIf,
     AsyncPipe,
     TasksComponent,
-    NgSubDirective
+    NgSubDirective,
+    LoaderComponent
   ],
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -55,6 +58,7 @@ export class HomeComponent {
   layoutType$: Observable<string>;
   sidebarShown$: Observable<boolean>;
   modalOptions$: Observable<Options>;
+  loading$: Observable<boolean>;
   modalKeys = MODAL_KEYS;
 
   constructor(
@@ -70,6 +74,7 @@ export class HomeComponent {
     this.boards$ = this.store.select(tasksBoardsSelector);
     this.store.dispatch(tasksActions.fetchBoardsStart());
     this.modalOptions$ = this.modalService.modalOptions$;
+    this.loading$ = this.store.select(tasksLoadingProjectsSelector);
   }
 
   onBackdropClick() {

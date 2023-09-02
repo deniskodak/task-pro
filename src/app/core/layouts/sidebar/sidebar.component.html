@@ -5,8 +5,13 @@
     <div class="new-board-wrapper">
       <app-new-board></app-new-board>
     </div>
-    <div>
+    <div style="position: relative">
       <app-board-list></app-board-list>
+      <app-loader
+        *ngIf="loading$ | async"
+        [size]="loaderSize"
+        type="reversed"
+      ></app-loader>
     </div>
   </div>
 

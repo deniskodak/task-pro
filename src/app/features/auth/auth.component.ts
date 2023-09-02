@@ -1,3 +1,6 @@
+import { LoaderComponent } from './../../shared/loader/loader.component';
+import { authLoadingSelector } from './../../core/store/auth/auth.selectors';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { authActions } from './../../core/store/auth/auth.actions';
 import {
@@ -15,7 +18,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgIf, AsyncPipe } from '@angular/common';
 import { InputFeedbackComponent } from 'src/app/shared/input-feedback/input-feedback.component';
 
 @Component({
@@ -26,6 +29,8 @@ import { InputFeedbackComponent } from 'src/app/shared/input-feedback/input-feed
     RouterModule,
     NgIf,
     InputFeedbackComponent,
+    LoaderComponent,
+    AsyncPipe,
   ],
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -35,6 +40,7 @@ import { InputFeedbackComponent } from 'src/app/shared/input-feedback/input-feed
 export class AuthComponent extends VibrateClass implements OnInit {
   isLogin = false;
   form: FormGroup;
+  loading$: Observable<boolean>;
 
   constructor(private route: ActivatedRoute, private store: Store) {
     super();
@@ -44,7 +50,7 @@ export class AuthComponent extends VibrateClass implements OnInit {
     this.route.data.subscribe((data) => {
       this.isLogin = data['isLogin'];
     });
-
+    this.loading$ = this.store.select(authLoadingSelector);
     this.initForm();
   }
 

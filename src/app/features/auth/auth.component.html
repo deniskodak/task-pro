@@ -67,5 +67,6 @@
         {{ isLogin ? "Log In Now" : "Register Now" }}
       </button>
     </form>
+    <app-loader *ngIf="loading$ | async"></app-loader>
   </div>
 </app-linear>
