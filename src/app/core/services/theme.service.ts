@@ -17,7 +17,6 @@ export class ThemeService {
 
   init() {
     this.currTheme$.pipe(distinctUntilChanged()).subscribe((theme) => {
-      console.log(theme);
       localStorage.setItem(THEME_LOCAL_KEY, theme);
       this.applyTheme(theme);
     });
