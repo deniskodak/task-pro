@@ -119,6 +119,7 @@ export class CreateTaskModalComponent
     if (!this.form.valid) {
       this.form.markAllAsTouched();
       this.toggleVibrate();
+      return;
     }
     const { deadline, title, description, labelColor } = this.form.value;
 

@@ -79,6 +79,7 @@ export class CreateProjectModalComponent
     if (!this.form.form.valid) {
       this.form.form.markAllAsTouched();
       this.toggleVibrate();
+      return;
     }
 
     const { title } = this.form.value;
