@@ -1,6 +1,9 @@
+import { tasksActions } from 'src/app/core/store/tasks/tasks.actions';
+import { Store } from '@ngrx/store';
+import { Task } from './../../../core/models/task.model';
 import { NgFor } from '@angular/common';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
-import { Subscription } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
 import { ModalService } from 'src/app/core/services/modal.service';
 import {
   Component,
@@ -33,6 +36,7 @@ import {
   Themes,
 } from 'src/app/shared/radio-group/radio.component';
 export const CREATE_TASK_KEY = 'createTask';
+import { v4 } from 'uuid';
 
 enum TaskPriority {
   Low = 'low',
@@ -41,7 +45,7 @@ enum TaskPriority {
   Without = 'without',
 }
 
-const THEMES_PRIORITY_MAP = {
+export const THEMES_PRIORITY_MAP = {
   [TaskPriority.High]: Themes.Green,
   [TaskPriority.Medium]: Themes.Pink,
   [TaskPriority.Low]: Themes.Blue,
@@ -84,10 +88,12 @@ export class CreateTaskModalComponent
   modalOptions: Subscription;
   priorityList = priorityList;
   minDate = new Date();
+  projectId: string;
 
   constructor(
     private modalService: ModalService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private store: Store
   ) {
     super();
   }
@@ -95,10 +101,13 @@ export class CreateTaskModalComponent
   ngOnInit(): void {
     this.initForm();
 
-    this.modalOptions = this.modalService.modalOptions$.subscribe((options) => {
-      this.initForm();
-      this.changeDetectorRef.detectChanges();
-    });
+    this.modalOptions = this.modalService.modalOptions$
+      .pipe(filter(Boolean))
+      .subscribe((options) => {
+        this.projectId = options['projectId'];
+        this.initForm();
+        this.changeDetectorRef.detectChanges();
+      });
   }
 
   ngOnDestroy(): void {
@@ -110,7 +119,12 @@ export class CreateTaskModalComponent
       this.form.markAllAsTouched();
       this.toggleVibrate();
     }
-    console.log(this.form.value);
+    const { deadline, title, description, labelColor } = this.form.value;
+
+    const formattedDate = new Date(deadline).toLocaleDateString('en-US');
+    const task = new Task(title, description, v4(), labelColor, formattedDate);
+    this.store.dispatch(tasksActions.addTask({task, projectId: this.projectId}));
+    console.log(task);
   }
 
   private initForm() {

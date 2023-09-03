@@ -1,3 +1,4 @@
+import { CardListComponent } from './card-list/card-list.component';
 import { CREATE_TASK_KEY } from 'src/app/features/home/create-task-modal/create-task-modal.component';
 import { SquareButtonComponent } from './../../../../../shared/squre-button/squre-button.component';
 import { tasksActions } from './../../../../../core/store/tasks/tasks.actions';
@@ -10,7 +11,7 @@ import { Project } from 'src/app/core/models/project.model';
 
 @Component({
   standalone: true,
-  imports: [MatIconModule, SquareButtonComponent],
+  imports: [MatIconModule, SquareButtonComponent, CardListComponent],
   selector: 'app-columns-item',
   templateUrl: './columns-item.component.html',
   styleUrls: ['./columns-item.component.scss'],
@@ -33,6 +34,6 @@ export class ColumnsItemComponent {
   }
 
   onAddTask() {
-    this.modalService.setModalOptions({ key: CREATE_TASK_KEY });
+    this.modalService.setModalOptions({ key: CREATE_TASK_KEY, projectId: this.column.id });
   }
 }

@@ -29,7 +29,7 @@ export const tasksActions = createActionGroup({
     [TasksActionTypes.FetchProjectsStart]: emptyProps(),
     [TasksActionTypes.AddBoard]: props<{ board: Board }>(),
     [TasksActionTypes.AddProject]: props<{ project: Project }>(),
-    [TasksActionTypes.AddTask]: props<{ task: Task }>(),
+    [TasksActionTypes.AddTask]: props<{ task: Task, projectId: string }>(),
     [TasksActionTypes.DeleteBoard]: props<{ id: string }>(),
     [TasksActionTypes.DeleteProject]: props<{ id: string }>(),
     [TasksActionTypes.DeleteTask]: props<{ id: string }>(),

@@ -1,0 +1,3 @@
+<ul class="card-list">
+    <li *ngFor="let card of cardList$ | async"><app-card-item [card]="card"></app-card-item></li>
+</ul>

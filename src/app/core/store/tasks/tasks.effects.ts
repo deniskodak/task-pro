@@ -1,9 +1,12 @@
 import { tasksBoardsSelector } from 'src/app/core/store/tasks/tasks.selectors';
-import { tasksSelectedBoardSelector } from './tasks.selectors';
+import {
+  tasksSelectedBoardSelector,
+  tasksProjectsSelector,
+} from './tasks.selectors';
 import { DatabaseUser } from './../../models/database-user.model';
 import { authUserSelector } from './../auth/auth.selectors';
 import { Store } from '@ngrx/store';
-import { filter, first, map, switchMap, take } from 'rxjs/operators';
+import { catchError, filter, first, map, switchMap } from 'rxjs/operators';
 import { tasksActions } from './tasks.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
@@ -15,6 +18,7 @@ import { Project } from '../../models/project.model';
 enum CollectionKeys {
   Users = '/users',
   Boards = '/boards',
+  Tasks = '/tasks',
 }
 
 @Injectable()
@@ -24,6 +28,18 @@ export class TasksEffects {
     private store: Store,
     private db: AngularFireDatabase
   ) {}
+
+  private commonStore$ = combineLatest([
+    this.store.select(tasksSelectedBoardSelector),
+    this.store.select(tasksProjectsSelector),
+    this.store.select(authUserSelector),
+  ]).pipe(
+    map(([selectedBoard, boardProjects, user]) => ({
+      board: selectedBoard,
+      projects: boardProjects,
+      user,
+    }))
+  );
 
   setBoards = createEffect(() =>
     this.actions$.pipe(
@@ -203,6 +219,44 @@ export class TasksEffects {
       filter((action) => action.board !== null),
       switchMap(() => this.getProjects()),
       map((projects) => tasksActions.fetchProjects({ projects }))
+    )
+  );
+
+  addTask = createEffect(() =>
+    this.actions$.pipe(
+      ofType(tasksActions.addTask),
+      switchMap((action) =>
+        this.commonStore$.pipe(
+          first(),
+          switchMap(({ board, projects }) => {
+            const projectIndex = projects.findIndex(
+              (project) => project.id === action.projectId
+            );
+            if (projectIndex < 0) {
+              return of({ type: 'invalid' });
+            }
+            const project = projects[projectIndex];
+            const updateProjectTasks = project.tasks?.concat([action.task]) || [
+              action.task,
+            ];
+            const updateProject = new Project(
+              project.title,
+              project.id,
+              updateProjectTasks
+            );
+
+            return this.db
+              .list(`${CollectionKeys.Boards}/${board.id}`)
+              .set(String(projectIndex), updateProject)
+              .then(() => {
+                const copiedProjects = projects.slice();
+                copiedProjects.splice(projectIndex, 1, updateProject);
+                return tasksActions.fetchProjects({ projects: copiedProjects });
+              });
+          })
+        )
+      ),
+      catchError(() => of({ type: 'invalid' }))
     )
   );
 

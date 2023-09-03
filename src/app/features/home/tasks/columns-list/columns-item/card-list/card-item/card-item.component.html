@@ -1,0 +1,19 @@
+<div [class]="['card', card.labelColor]">
+  <h5 class="card-title">
+    {{ card?.title }}
+  </h5>
+  <p class="card-description">{{ card?.description }}</p>
+  <div class="card-divider"></div>
+  <div class="card-info">
+    <div class="card-info-wrapper">
+      <p class="card-info-label">Priority</p>
+      <p class="card-info-value priority">
+        {{ card?.labelColor }}
+      </p>
+    </div>
+    <div class="card-info-wrapper">
+      <p class="card-info-label">Deadline</p>
+      <p class="card-info-value">{{ card?.date }}</p>
+    </div>
+  </div>
+</div>
