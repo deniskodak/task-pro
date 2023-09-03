@@ -22,9 +22,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { SvgIconComponent } from 'src/app/shared/svg-icon/svg-icon.component';
 import { NgForOf, AsyncPipe, NgClass } from '@angular/common';
-import { IconSpriteModule } from 'ng-svg-icon-sprite';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import {
   FormControl,
@@ -42,9 +40,7 @@ export const CREATE_BOARD_KEY = 'createBoard';
   selector: 'app-create-board-modal',
   imports: [
     ModalComponent,
-    SvgIconComponent,
     NgForOf,
-    IconSpriteModule,
     MatIconModule,
     AsyncPipe,
     ReactiveFormsModule,
@@ -149,6 +145,10 @@ export class CreateBoardModalComponent
       : tasksActions.addBoard({ board });
     this.store.dispatch(action);
     this.modalService.hide();
+  }
+
+  trackByIcon(index, icon: BoardIcons) {
+    return icon
   }
 
   onIconClick(icon: BoardIcons) {

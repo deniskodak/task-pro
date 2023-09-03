@@ -1,5 +1,5 @@
 <ul class="columns-list">
-  <li class="columns-item" *ngFor="let project of projects$ | async">
+  <li class="columns-item" *ngFor="let project of projects$ | async; trackBy:trackByProject">
     <app-columns-item [column]="project" ></app-columns-item>
   </li>
   <li class="columns-item">

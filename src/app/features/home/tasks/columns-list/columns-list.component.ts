@@ -25,4 +25,8 @@ export class ColumnsListComponent implements OnInit {
   ngOnInit(): void {
     this.projects$ = this.store.select(tasksProjectsSelector);
   }
+
+  trackByProject(index, project: Project) {
+    return project.id
+  }
 }

@@ -1,5 +1,9 @@
 @import "../../../../../../styles/mixin.scss";
 
+.column {
+    height: 100%;
+}
+
 .column-info {
     @extend %align-vertical;
     background-color: var(--primary-bg-cl);

@@ -17,16 +17,16 @@
         class="icon-list-item"
         [ngClass]="{ active: selectedIcon === icon }"
         (click)="onIconClick(icon)"
-        *ngFor="let icon of iconsList"
+        *ngFor="let icon of iconsList; trackBy: trackByIcon"
       >
         <mat-icon [svgIcon]="icon"></mat-icon>
       </li>
     </ul>
-    <ul>
-      <li *ngFor="let item of previewImages$ | async">
+    <!-- <ul> -->
+      <!-- <li *ngFor="let item of previewImages$ | async; trackBy:"> -->
         <!-- <img [src]="(item.getDownloadURL())" > -->
-      </li>
-    </ul>
+      <!-- </li> -->
+    <!-- </ul> -->
     <button class="button withIcon" [@vibrateAnimation]="vibrateState">
       <app-square-button></app-square-button>{{ isEdit ? "Edit" : "Create" }}
     </button>

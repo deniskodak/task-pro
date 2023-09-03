@@ -34,7 +34,7 @@ main {
 }
 
 .tasks-wrapper {
-    flex-grow: 1;
+    height: calc(100% - var(--gl-header-height));
 }
 
 .sidebar-backdrop {

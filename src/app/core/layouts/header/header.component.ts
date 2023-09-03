@@ -2,12 +2,14 @@ import { ThemeService } from './../../services/theme.service';
 import { ThemeKeys } from './../../../shared/config/theme.config';
 import { SidebarService } from './../../services/sidebar.service';
 import { NgIf, AsyncPipe, NgFor, NgClass } from '@angular/common';
-import { LayoutService, Breakpoints } from 'src/app/core/services/layout.service';
+import {
+  LayoutService,
+  Breakpoints,
+} from 'src/app/core/services/layout.service';
 import { authUserSelector } from './../../store/auth/auth.selectors';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
@@ -45,15 +47,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private store: Store,
     private layoutService: LayoutService,
     private sidebarService: SidebarService,
-    private themeService: ThemeService,
-    private changeDetectionRef: ChangeDetectorRef
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
     this.store
       .select(authUserSelector)
       .pipe(
-        map((user) => user.name),
+        map((user) => user?.name),
         takeUntil(this.destroy$)
       )
       .subscribe((name) => {
@@ -72,6 +73,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onThemeClick(theme: ThemeKeys) {
     this.themeService.setTheme(theme);
+  }
+
+  trackByThemes(index, theme: ThemeKeys) {
+    return theme
   }
 
   ngOnDestroy(): void {

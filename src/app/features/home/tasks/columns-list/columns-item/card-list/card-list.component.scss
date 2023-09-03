@@ -1,2 +1,9 @@
+@import '../../../../../../../styles/mixin.scss';
+
+$buttonsHeigh: 140px;
+
 .card-list {
+    @include changeScroll();
+    overflow: auto;
+    max-height: calc(100% - $buttonsHeigh);
 }

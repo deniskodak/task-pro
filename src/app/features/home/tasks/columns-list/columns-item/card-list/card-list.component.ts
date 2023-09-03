@@ -45,4 +45,8 @@ export class CardListComponent implements OnInit {
       tasksActions.deleteTask({ projectId: this.projectId, task: task })
     );
   }
+
+  trackByCard(index, card: Task) {
+    return card.id;
+  }
 }

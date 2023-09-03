@@ -11,6 +11,23 @@
     }
 }
 
+@mixin changeScroll() {
+    &::-webkit-scrollbar,
+    &::-webkit-scrollbar-thumb {
+        border-radius: 0.5rem;
+    }
+
+    &::-webkit-scrollbar {
+        width: 0.5em;
+        height: 12px;
+        background-color: var(--primary-bg-cl);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--scroll-color);
+    }
+}
+
 %commonBefore {
     display: block;
     content: "";
@@ -66,3 +83,4 @@
     background-color: var(--backdrop-bg-cl);
     z-index: $z-index;
 }
+
