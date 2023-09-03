@@ -32,10 +32,10 @@ export const tasksActions = createActionGroup({
     [TasksActionTypes.AddTask]: props<{ task: Task, projectId: string }>(),
     [TasksActionTypes.DeleteBoard]: props<{ id: string }>(),
     [TasksActionTypes.DeleteProject]: props<{ id: string }>(),
-    [TasksActionTypes.DeleteTask]: props<{ id: string }>(),
+    [TasksActionTypes.DeleteTask]: props<{ task: Task, projectId: string  }>(),
     [TasksActionTypes.EditBoard]: props<{ board: Board }>(),
     [TasksActionTypes.EditProject]: props<{ title: string, id: string }>(),
-    [TasksActionTypes.EditTask]: props<{ task: Task }>(),
+    [TasksActionTypes.EditTask]: props<{ task: Task, projectId: string }>(),
     [TasksActionTypes.SetActiveBoard]: props<{ board: Board }>(),
   },
 });

@@ -82,9 +82,9 @@ export class CreateTaskModalComponent
   extends VibrateClass
   implements OnInit, OnDestroy
 {
+  task: Task = null;
   modalKey = CREATE_TASK_KEY;
   form: FormGroup;
-  isEdit: boolean;
   modalOptions: Subscription;
   priorityList = priorityList;
   minDate = new Date();
@@ -105,6 +105,7 @@ export class CreateTaskModalComponent
       .pipe(filter(Boolean))
       .subscribe((options) => {
         this.projectId = options['projectId'];
+        this.task = options['task'];
         this.initForm();
         this.changeDetectorRef.detectChanges();
       });
@@ -121,18 +122,38 @@ export class CreateTaskModalComponent
     }
     const { deadline, title, description, labelColor } = this.form.value;
 
+    const taskId = this.task ? this.task.id : v4();
     const formattedDate = new Date(deadline).toLocaleDateString('en-US');
-    const task = new Task(title, description, v4(), labelColor, formattedDate);
-    this.store.dispatch(tasksActions.addTask({task, projectId: this.projectId}));
-    console.log(task);
+    
+    const task = new Task(
+      title,
+      description,
+      taskId,
+      labelColor,
+      formattedDate
+    );
+
+    const action = this.task
+      ? tasksActions.editTask({ task, projectId: this.projectId })
+      : tasksActions.addTask({ task, projectId: this.projectId });
+
+    this.store.dispatch(action);
+    this.modalService.hide()
   }
 
   private initForm() {
+    const {
+      title = '',
+      description = '',
+      labelColor = '',
+      date = new Date(),
+    } = this.task || {};
+
     this.form = new FormGroup({
-      title: new FormControl('', [Validators.required]),
-      description: new FormControl('', Validators.required),
-      labelColor: new FormControl('', Validators.required),
-      deadline: new FormControl(new Date(), Validators.required),
+      title: new FormControl(title, [Validators.required]),
+      description: new FormControl(description, Validators.required),
+      labelColor: new FormControl(labelColor, Validators.required),
+      deadline: new FormControl(date, Validators.required),
     });
   }
 

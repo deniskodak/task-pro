@@ -108,3 +108,14 @@
         border-radius: 100%;
     }
 }
+
+.card-info-actions {
+    margin-left: auto;
+    align-self: flex-end;
+}
+
+.card-info-icon {
+    @extend %primary-icon;
+
+    color: var(--task-text-secondary-cl);
+}

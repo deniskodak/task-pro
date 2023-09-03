@@ -15,5 +15,11 @@
       <p class="card-info-label">Deadline</p>
       <p class="card-info-value">{{ card?.date }}</p>
     </div>
+    <div class="card-info-actions">
+      <mat-icon class="card-info-icon edit" (click)="onEdit()">edit</mat-icon>
+      <mat-icon class="card-info-icon" (click)="onDelete()"
+        >delete_outline</mat-icon
+      >
+    </div>
   </div>
 </div>

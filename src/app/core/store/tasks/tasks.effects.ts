@@ -224,7 +224,11 @@ export class TasksEffects {
 
   addTask = createEffect(() =>
     this.actions$.pipe(
-      ofType(tasksActions.addTask),
+      ofType(
+        tasksActions.addTask,
+        tasksActions.editTask,
+        tasksActions.deleteTask
+      ),
       switchMap((action) =>
         this.commonStore$.pipe(
           first(),
@@ -236,13 +240,28 @@ export class TasksEffects {
               return of({ type: 'invalid' });
             }
             const project = projects[projectIndex];
-            const updateProjectTasks = project.tasks?.concat([action.task]) || [
-              action.task,
-            ];
+            const { type, task } = action;
+            const projectsTasks = project.tasks || [];
+            let updatedProjectTasks = [];
+            switch (type) {
+              case '[Tasks] AddTask':
+                updatedProjectTasks = projectsTasks.concat([action.task]);
+                break;
+              case '[Tasks] EditTask':
+                updatedProjectTasks = projectsTasks.map((projectTask) =>
+                  projectTask.id === task.id ? task : projectTask
+                );
+                break;
+              case '[Tasks] DeleteTask':
+                updatedProjectTasks = projectsTasks.filter(
+                  ({ id }) => id !== task.id
+                );
+            }
+
             const updateProject = new Project(
               project.title,
               project.id,
-              updateProjectTasks
+              updatedProjectTasks
             );
 
             return this.db
@@ -251,6 +270,7 @@ export class TasksEffects {
               .then(() => {
                 const copiedProjects = projects.slice();
                 copiedProjects.splice(projectIndex, 1, updateProject);
+
                 return tasksActions.fetchProjects({ projects: copiedProjects });
               });
           })

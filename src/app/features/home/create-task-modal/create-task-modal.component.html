@@ -1,4 +1,4 @@
-<app-modal [title]="(isEdit ? 'Edit' : 'Add') + ' card'" [isShown]="true">
+<app-modal [title]="(task ? 'Edit' : 'Add') + ' card'" [isShown]="true">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <app-input-feedback
       [isShown]="!form.get('title').valid && form.get('title').touched"
@@ -58,7 +58,7 @@
     }}</a>
 
     <button class="button withIcon" [@vibrateAnimation]="vibrateState">
-      <app-square-button></app-square-button>{{ isEdit ? "Edit" : "Add" }}
+      <app-square-button></app-square-button>{{ task ? "Edit" : "Add" }}
     </button>
   </form>
 </app-modal>
