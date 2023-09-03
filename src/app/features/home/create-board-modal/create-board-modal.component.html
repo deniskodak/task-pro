@@ -27,7 +27,7 @@
         <!-- <img [src]="(item.getDownloadURL())" > -->
       </li>
     </ul>
-    <button class="button withIcon">
+    <button class="button withIcon" [@vibrateAnimation]="vibrateState">
       <app-square-button></app-square-button>{{ isEdit ? "Edit" : "Create" }}
     </button>
   </form>

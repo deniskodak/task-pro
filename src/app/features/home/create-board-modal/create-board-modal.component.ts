@@ -1,3 +1,7 @@
+import {
+  vibrate,
+  VibrateClass,
+} from './../../../shared/animations/vibrate.animation';
 import { InputFeedbackComponent } from './../../../shared/input-feedback/input-feedback.component';
 import { SquareButtonComponent } from 'src/app/shared/squre-button/squre-button.component';
 import { ModalService } from 'src/app/core/services/modal.service';
@@ -51,8 +55,12 @@ export const CREATE_BOARD_KEY = 'createBoard';
   templateUrl: './create-board-modal.component.html',
   styleUrls: ['./create-board-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [vibrate],
 })
-export class CreateBoardModalComponent implements OnInit, OnDestroy {
+export class CreateBoardModalComponent
+  extends VibrateClass
+  implements OnInit, OnDestroy
+{
   board: Board = null;
   isEdit = false;
   iconsList: BoardIcons[] = boardIconList;
@@ -73,7 +81,9 @@ export class CreateBoardModalComponent implements OnInit, OnDestroy {
     private store: Store,
     private fs: AngularFireStorage,
     private changeDetectorRef: ChangeDetectorRef
-  ) {}
+  ) {
+    super()
+  }
 
   ngOnInit() {
     this.initForm();
@@ -107,7 +117,11 @@ export class CreateBoardModalComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
-    const { name = '', iconName = BoardIcons.Project, backgroundImg = '' } = this.board || {};
+    const {
+      name = '',
+      iconName = BoardIcons.Project,
+      backgroundImg = '',
+    } = this.board || {};
     this.selectedIcon = iconName;
     this.form = new FormGroup({
       title: new FormControl(name, [Validators.required, trimValidator]),
@@ -116,11 +130,20 @@ export class CreateBoardModalComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if (!this.form.valid) return;
+    if (!this.form.valid) {
+      this.toggleVibrate();
+      this.form.markAllAsTouched();
+      return;
+    }
 
     const { title, backgroundImg } = this.form.value;
     const boardId = this.board?.id || v4();
-    const board = new Board(title.trim(), boardId, this.selectedIcon, backgroundImg);
+    const board = new Board(
+      title.trim(),
+      boardId,
+      this.selectedIcon,
+      backgroundImg
+    );
     const action = this.isEdit
       ? tasksActions.editBoard({ board })
       : tasksActions.addBoard({ board });
