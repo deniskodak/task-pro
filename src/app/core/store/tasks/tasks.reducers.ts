@@ -28,7 +28,6 @@ export const tasksReducer = createReducer(
   on(tasksActions.fetchBoards, (state, action) => ({
     ...state,
     boards: action.boards,
-    projects: [],
     loadingBoards: false,
   })),
   on(tasksActions.fetchProjects, (state, action) => ({

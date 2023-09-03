@@ -50,7 +50,7 @@ export class TasksEffects {
           switchMap((user) =>
             this.db.object(`${CollectionKeys.Users}/${user.id}`).valueChanges()
           ),
-          switchMap((user: DatabaseUser) =>
+          switchMap((user: DatabaseUser) => 
             of(tasksActions.fetchBoards({ boards: user.boards || [] }))
           )
         )
@@ -217,7 +217,8 @@ export class TasksEffects {
     this.actions$.pipe(
       ofType(tasksActions.setActiveBoard),
       filter((action) => action.board !== null),
-      switchMap(() => this.getProjects()),
+      switchMap(() => this.commonStore$.pipe(first())),
+      switchMap(({board}) => this.getProjectsById(board.id)),
       map((projects) => tasksActions.fetchProjects({ projects }))
     )
   );
@@ -306,12 +307,6 @@ export class TasksEffects {
     return this.getListByPath(
       `${CollectionKeys.Boards}/${boardId}`
     ) as Observable<Project[]>;
-  }
-
-  private getProjects() {
-    return this.getSelectedBoard().pipe(
-      switchMap((board) => this.getProjectsById(board.id))
-    );
   }
 
   private getListByPath(collectionPath) {
