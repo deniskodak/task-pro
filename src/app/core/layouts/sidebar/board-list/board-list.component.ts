@@ -14,6 +14,7 @@ import {
 } from 'src/app/core/store/tasks/tasks.selectors';
 import { Board } from 'src/app/core/models/board.model';
 import { BoardItemComponent } from '../board-item/board-item.component';
+import { tasksActions } from 'src/app/core/store/tasks/tasks.actions';
 
 @Component({
   standalone: true,
@@ -39,6 +40,12 @@ export class BoardListComponent implements OnInit, OnDestroy {
       });
   }
 
+  onBoardClick(board: Board) {
+    if(this.selectedBoard?.id !== board.id) {
+      this.store.dispatch(tasksActions.setActiveBoard({ board }));
+    }
+  }
+  
   ngOnDestroy(): void {
     this.selectedBoardSub.unsubscribe();
   }

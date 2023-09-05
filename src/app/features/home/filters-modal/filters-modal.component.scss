@@ -1,0 +1,58 @@
+.filters-content {
+    padding-top: 14px;
+    margin-top: -10px;
+    border-top: 1px solid var(--task-decor-cl);
+}
+
+.filters-content-top {
+    display: flex;
+    margin-bottom: 14px;
+}
+
+.filters-subtitle {
+    color: var(--text-forth-cl);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.filters-link {
+    margin-left: auto;
+    color: var(--task-text-secondary-cl);
+    font-weight: 400;
+    font-size: 12px;
+    text-decoration: underline;
+    transition: color var(--gl-transition);
+
+    &:hover,
+    &:focus {
+        color: var(--accent-cl);
+    }
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-wrapper:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+
+.radio-button {
+
+    &:first-child {
+        order: 2;
+    }
+
+    &:nth-child(2) {
+        order: 3;
+    }
+
+    &:nth-child(3) {
+        order: 4;
+    }
+
+    &:last-child {
+        order: 1;
+    }
+}

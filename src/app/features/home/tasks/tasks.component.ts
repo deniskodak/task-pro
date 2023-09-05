@@ -1,3 +1,5 @@
+import { ModalService } from 'src/app/core/services/modal.service';
+import { MatIconModule } from '@angular/material/icon';
 import { BoardImages } from './../../../core/store/tasks/tasks.reducers';
 import { map } from 'rxjs/operators';
 import { tasksBoardImagesSelector } from './../../../core/store/tasks/tasks.selectors';
@@ -18,8 +20,18 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { Board } from 'src/app/core/models/board.model';
+import { FILTERS_KEY } from '../filters-modal/filters-modal.component';
 
-const darkBackgrounds = ['planet', 'moon', 'rocks', 'mounts', 'sky', 'sand', 'boat', 'jungle']
+const darkBackgrounds = [
+  'planet',
+  'moon',
+  'rocks',
+  'mounts',
+  'sky',
+  'sand',
+  'boat',
+  'jungle',
+];
 
 @Component({
   standalone: true,
@@ -31,6 +43,7 @@ const darkBackgrounds = ['planet', 'moon', 'rocks', 'mounts', 'sky', 'sand', 'bo
     AsyncPipe,
     NgFor,
     ColumnsListComponent,
+    MatIconModule,
   ],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
@@ -44,7 +57,8 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -77,6 +91,10 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   isDarkBackground() {
-    return darkBackgrounds.includes(this.boardImage?.name)
+    return darkBackgrounds.includes(this.boardImage?.name);
+  }
+
+  onFiltersClick() {
+    this.modalService.setModalOptions({ key: FILTERS_KEY });
   }
 }

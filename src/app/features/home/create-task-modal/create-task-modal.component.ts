@@ -31,28 +31,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CustomDatePipe } from 'src/app/shared/pipes/custom-date.pipe';
-import {
-  RadioComponent,
-  Themes,
-} from 'src/app/shared/radio-group/radio.component';
+import { RadioComponent } from 'src/app/shared/radio-group/radio.component';
 export const CREATE_TASK_KEY = 'createTask';
 import { v4 } from 'uuid';
-
-enum TaskPriority {
-  Low = 'low',
-  Medium = 'medium',
-  High = 'high',
-  Without = 'without',
-}
-
-export const THEMES_PRIORITY_MAP = {
-  [TaskPriority.High]: Themes.Green,
-  [TaskPriority.Medium]: Themes.Pink,
-  [TaskPriority.Low]: Themes.Blue,
-  [TaskPriority.Without]: Themes.Gray,
-};
-
-const priorityList = Object.values(TaskPriority);
+import { priorityList, TaskPriority, THEMES_PRIORITY_MAP } from 'src/app/shared/constants/priority';
 
 @Component({
   standalone: true,
@@ -125,7 +107,7 @@ export class CreateTaskModalComponent
 
     const taskId = this.task ? this.task.id : v4();
     const formattedDate = new Date(deadline).toLocaleDateString('en-US');
-    
+
     const task = new Task(
       title,
       description,
@@ -139,7 +121,7 @@ export class CreateTaskModalComponent
       : tasksActions.addTask({ task, projectId: this.projectId });
 
     this.store.dispatch(action);
-    this.modalService.hide()
+    this.modalService.hide();
   }
 
   private initForm() {

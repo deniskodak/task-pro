@@ -47,6 +47,9 @@
 }
 
 .board-title {
+    @extend %align-vertical;
+    justify-content: space-between;
+
     margin-bottom: 10px;
     font-size: 18px;
     font-weight: 500;
@@ -57,6 +60,26 @@
     }
     &.dark {
         color: var(--gl-task-light-title-cl);
+    }
+}
+
+.board-title-filters-link {
+    font-size: 14px;
+    transition: all var(--gl-transition);
+
+    &:hover,
+    &:focus {
+        transform: scale(1.05);
+        color: var(--primary-cl);
+    }
+
+    .filters-icon {
+        height: 1rem;
+        width: 1rem;
+        color: inherit;
+        font-size: 2px;
+        vertical-align: text-top;
+        margin-right: 0.5rem;
     }
 }
 

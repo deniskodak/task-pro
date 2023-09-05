@@ -1,3 +1,4 @@
+import { FILTERS_KEY, FiltersModalComponent } from './filters-modal/filters-modal.component';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { tasksLoadingProjectsSelector } from './../../core/store/tasks/tasks.selectors';
 import { LoaderComponent } from './../../shared/loader/loader.component';
@@ -28,6 +29,7 @@ const MODAL_KEYS = {
   project: CREATE_PROJECT_KEY,
   board: CREATE_BOARD_KEY,
   help: NEED_HELP_KEY,
+  filters: FILTERS_KEY,
 };
 
 @Component({
@@ -42,6 +44,7 @@ const MODAL_KEYS = {
     NeedHelpModalComponent,
     CreateProjectModalComponent,
     CreateTaskModalComponent,
+    FiltersModalComponent,
     NgIf,
     AsyncPipe,
     TasksComponent,

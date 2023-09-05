@@ -1,0 +1,23 @@
+<app-modal title="Filters" [isShown]="true">
+  <div class="filters-content">
+    <div class="filters-content-top">
+      <strong class="filters-subtitle">Label color</strong>
+      <a class="filters-link" (click)="onClickAll()">Show all</a>
+    </div>
+    <mat-radio-group
+      aria-label="Select an option"
+      class="radio-group"
+      [(ngModel)]="selectedFilter"
+      name="priority"
+    >
+      <div *ngFor="let priority of priorityList" class="radio-wrapper">
+        <app-radio-button
+          [theme]="getRadioTheme(priority)"
+          class="radio-button"
+          [value]="priority"
+          [label]="getPriorityLabel(priority)"
+        ></app-radio-button>
+      </div>
+    </mat-radio-group>
+  </div>
+</app-modal>

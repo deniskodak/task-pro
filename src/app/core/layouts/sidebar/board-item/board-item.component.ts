@@ -20,10 +20,6 @@ export class BoardItemComponent {
 
   constructor(private modalService: ModalService, private store: Store) {}
 
-  onItemClick() {
-    this.store.dispatch(tasksActions.setActiveBoard({ board: this.board }));
-  }
-
   onEdit(event: MouseEvent) {
     event.stopPropagation()
     this.modalService.setModalOptions({

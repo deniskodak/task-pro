@@ -15,11 +15,12 @@ export enum Themes {
   template: `<mat-radio-button
     [class]="['radio', theme]"
     [value]="value"
-  ></mat-radio-button>`,
+  >{{ label }}</mat-radio-button>`,
   styleUrls: ['./radio.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RadioComponent {
   @Input() theme: Themes = Themes.Gray;
   @Input() value = null;
+  @Input() label = '';
 }

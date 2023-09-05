@@ -32,7 +32,7 @@ export class IconService {
     private readonly iconRegistry: MatIconRegistry,
     private readonly sanitizer: DomSanitizer
   ) {
-    boardIconList.forEach((icon) => {
+    [...boardIconList, 'filters'].forEach((icon) => {
       this.addPath(icon, `assets/icons/${icon}.svg`);
     });
   }

@@ -10,6 +10,15 @@
             }
         }
 
+        .mdc-label {
+            color: var(--task-text-secondary-cl);
+            cursor: pointer;
+            
+            &::first-letter {
+                text-transform: uppercase;
+            }
+        }
+
         .mat-ripple .mat-ripple-element {
             background-color: transparent !important;
         }
