@@ -151,4 +151,8 @@ export class CreateBoardModalComponent
   isFieldValid(fieldName) {
     return !this.form.get(fieldName).valid && this.form.get(fieldName).touched;
   }
+
+  getImageSrcset(boardImage: BoardImages) {
+    return `${boardImage.previewImage.baseUrl}, ${boardImage.previewImage['2xUrl']} 2x`;
+  }
 }

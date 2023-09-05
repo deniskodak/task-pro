@@ -38,9 +38,8 @@
         *ngFor="let boardImage of boardImages$ | async"
         [class.active]="selectedImage === boardImage.name"
         (click)="onImageClick(boardImage.name)"
-        load="lazy"
       >
-        <img [src]="boardImage.previewImage['baseUrl']" />
+        <img [srcset]="getImageSrcset(boardImage)" load="lazy" />
       </li>
     </ul>
     <button class="button withIcon" [@vibrateAnimation]="vibrateState">

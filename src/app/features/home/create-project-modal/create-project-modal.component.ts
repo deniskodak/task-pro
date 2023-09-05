@@ -62,7 +62,6 @@ export class CreateProjectModalComponent
       .pipe(takeUntil(this.destroy$))
       .subscribe((options: { key: string; project?: Project }) => {
         const project = options?.project || null;
-        console.log(options, 'options')
         this.column = project;
         this.isEdit = !!project;
         this.title = project?.title || '';

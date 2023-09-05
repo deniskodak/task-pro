@@ -1,19 +1,12 @@
 import { BoardImages } from './../../../core/store/tasks/tasks.reducers';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { tasksBoardImagesSelector } from './../../../core/store/tasks/tasks.selectors';
 import { ColumnsListComponent } from './columns-list/columns-list.component';
 import {
   tasksBoardsSelector,
   tasksSelectedBoardSelector,
 } from 'src/app/core/store/tasks/tasks.selectors';
-import {
-  Observable,
-  combineLatest,
-  of,
-  tap,
-  Subscription,
-  Subject,
-} from 'rxjs';
+import { Observable, combineLatest, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { NgClass, NgIf, AsyncPipe, NgFor } from '@angular/common';
 import { EmptyPlaceholderComponent } from './emptyPlaceholder/empty-placeholder.component';
@@ -26,7 +19,7 @@ import {
 } from '@angular/core';
 import { Board } from 'src/app/core/models/board.model';
 
-const INITIAL_BOARD_IMAGE = { web: { baseUrl: '', '2xUrl': '' } };
+const darkBackgrounds = ['planet', 'moon', 'rocks', 'mounts', 'sky', 'sand', 'boat', 'jungle']
 
 @Component({
   standalone: true,
@@ -81,5 +74,9 @@ export class TasksComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  isDarkBackground() {
+    return darkBackgrounds.includes(this.boardImage?.name)
   }
 }

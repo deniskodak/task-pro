@@ -1,7 +1,7 @@
 <div class="tasks" [class.transparent]="!!boardImage" >
   <img *ngIf="boardImage" [srcset]="getBackgroundImageSrcset()" loading="lazy" class="background-image">
   <div class="board" *ngIf="(boards$ | async).length > 0">
-    <h2 class="board-title">{{ (selectedBoard$ | async).name }}</h2>
+    <h2 class="board-title" [class.dark]="isDarkBackground()" [class.default]="!boardImage">{{ (selectedBoard$ | async).name }}</h2>
     <div class="columns-wrapper">
       <app-columns-list></app-columns-list>
     </div>

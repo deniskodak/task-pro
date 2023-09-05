@@ -50,7 +50,14 @@
     margin-bottom: 10px;
     font-size: 18px;
     font-weight: 500;
-    color: var(--text-forth-cl);
+    color: var(--gl-task-dark-title-cl);
+
+    &.default {
+        color: var(--text-forth-cl);
+    }
+    &.dark {
+        color: var(--gl-task-light-title-cl);
+    }
 }
 
 .columns-wrapper {
