@@ -41,3 +41,39 @@ app-input-feedback,
         }
     }
 }
+
+
+.background-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+    gap: 4px;
+    width: 90%;
+}
+
+.background-item {
+    background-color: var(--secondary-bg-cl);
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    transition: all var(--gl-transition);
+
+    &.withIcon {
+        @extend %align-full;
+    }
+
+    &:hover,
+    &:focus,
+    &.active {
+        box-shadow: 0px 0px 3px 2px var(--primary-cl);
+        transform: scale(1.05);
+    }
+}
+
+.default-board-bg-icon {
+    color: var(--text-forth-cl);
+    opacity: 0.1;
+    width: 1rem;
+    height: 1rem;
+}

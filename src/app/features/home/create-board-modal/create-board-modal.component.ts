@@ -1,3 +1,5 @@
+import { tasksBoardImagesSelector } from './../../../core/store/tasks/tasks.selectors';
+import { BoardImages } from './../../../core/store/tasks/tasks.reducers';
 import {
   vibrate,
   VibrateClass,
@@ -13,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {
   boardIconList,
   BoardIcons,
+  IconService,
 } from './../../../core/services/icon.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import {
@@ -23,7 +26,6 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { NgForOf, AsyncPipe, NgClass } from '@angular/common';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
 import {
   FormControl,
   FormGroup,
@@ -61,28 +63,27 @@ export class CreateBoardModalComponent
   isEdit = false;
   iconsList: BoardIcons[] = boardIconList;
   selectedIcon: BoardIcons = BoardIcons.Project;
+  selectedImage = 'default';
   destroy$ = new Subject<void>();
   form: FormGroup;
-  previewImages$: Observable<
-    {
-      bucket: string;
-      name: string;
-      fullPath: string;
-      getDownloadURL: () => Promise<string>;
-    }[]
-  >;
+  boardImages$: Observable<BoardImages[]>;
 
   constructor(
     private modalService: ModalService,
     private store: Store,
-    private fs: AngularFireStorage,
+    private iconService: IconService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
-    super()
+    super();
+    this.iconService.addPath(
+      'defaultBoardBg',
+      'assets/icons/default_board_bg.svg'
+    );
   }
 
   ngOnInit() {
     this.initForm();
+    this.boardImages$ = this.store.select(tasksBoardImagesSelector);
 
     this.modalService.modalOptions$
       .pipe(takeUntil(this.destroy$))
@@ -92,19 +93,6 @@ export class CreateBoardModalComponent
         this.initForm();
         this.changeDetectorRef.detectChanges();
       });
-
-    // this.previewImages$ = this.fs
-    //   .ref('preview')
-    //   .listAll()
-    //   .pipe(
-    //     map((list) =>
-    //       list.items.filter((item) => {
-    //         item.getDownloadURL().then((url) => console.log(url));
-    //         return !item.name.includes('2x');
-    //       })
-    //     ),
-    //     takeUntil(this.destroy$)
-    //   );
   }
 
   ngOnDestroy(): void {
@@ -116,12 +104,13 @@ export class CreateBoardModalComponent
     const {
       name = '',
       iconName = BoardIcons.Project,
-      backgroundImg = '',
+      backgroundImg = 'default',
     } = this.board || {};
     this.selectedIcon = iconName;
+    this.selectedImage = backgroundImg;
+
     this.form = new FormGroup({
       title: new FormControl(name, [Validators.required, trimValidator]),
-      backgroundImg: new FormControl(backgroundImg),
     });
   }
 
@@ -132,13 +121,13 @@ export class CreateBoardModalComponent
       return;
     }
 
-    const { title, backgroundImg } = this.form.value;
+    const { title } = this.form.value;
     const boardId = this.board?.id || v4();
     const board = new Board(
       title.trim(),
       boardId,
       this.selectedIcon,
-      backgroundImg
+      this.selectedImage
     );
     const action = this.isEdit
       ? tasksActions.editBoard({ board })
@@ -148,11 +137,15 @@ export class CreateBoardModalComponent
   }
 
   trackByIcon(index, icon: BoardIcons) {
-    return icon
+    return icon;
   }
 
   onIconClick(icon: BoardIcons) {
     this.selectedIcon = icon;
+  }
+
+  onImageClick(image: string) {
+    this.selectedImage = image;
   }
 
   isFieldValid(fieldName) {

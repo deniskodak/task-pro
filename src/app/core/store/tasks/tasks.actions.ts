@@ -2,6 +2,7 @@ import { Task } from './../../models/task.model';
 import { Project } from './../../models/project.model';
 import { Board } from './../../models/board.model';
 import { props, createActionGroup, emptyProps } from '@ngrx/store';
+import { BoardImages } from './tasks.reducers';
 
 export enum TasksActionTypes {
   FetchBoards = 'FetchBoards',
@@ -17,7 +18,9 @@ export enum TasksActionTypes {
   EditBoard = 'EditBoard',
   EditProject = 'EditProject',
   EditTask = 'EditTask',
-  SetActiveBoard = 'SetActiveBoard'
+  SetActiveBoard = 'SetActiveBoard',
+  FetchBoardImages = 'FetchBoardImages',
+  SetBoardImages = 'SetBoardImages'
 }
 
 export const tasksActions = createActionGroup({
@@ -37,5 +40,7 @@ export const tasksActions = createActionGroup({
     [TasksActionTypes.EditProject]: props<{ title: string, id: string }>(),
     [TasksActionTypes.EditTask]: props<{ task: Task, projectId: string }>(),
     [TasksActionTypes.SetActiveBoard]: props<{ board: Board }>(),
+    [TasksActionTypes.FetchBoardImages]: emptyProps(),
+    [TasksActionTypes.SetBoardImages]: props<{images: BoardImages[]}>(),
   },
 });

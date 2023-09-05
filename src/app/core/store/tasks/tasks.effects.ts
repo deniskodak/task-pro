@@ -1,3 +1,4 @@
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { tasksBoardsSelector } from 'src/app/core/store/tasks/tasks.selectors';
 import {
   tasksSelectedBoardSelector,
@@ -6,19 +7,29 @@ import {
 import { DatabaseUser } from './../../models/database-user.model';
 import { authUserSelector } from './../auth/auth.selectors';
 import { Store } from '@ngrx/store';
-import { catchError, filter, first, map, switchMap } from 'rxjs/operators';
+import {
+  catchError,
+  concatMap,
+  filter,
+  first,
+  map,
+  switchMap,
+  toArray,
+} from 'rxjs/operators';
 import { tasksActions } from './tasks.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { of, Observable, combineLatest } from 'rxjs';
+import { of, Observable, combineLatest, from } from 'rxjs';
 import { Board } from '../../models/board.model';
 import { Project } from '../../models/project.model';
+import { BoardImages } from './tasks.reducers';
 
 enum CollectionKeys {
   Users = '/users',
   Boards = '/boards',
   Tasks = '/tasks',
+  BoardImages = '/boardImages',
 }
 
 @Injectable()
@@ -26,7 +37,8 @@ export class TasksEffects {
   constructor(
     private actions$: Actions,
     private store: Store,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private fs: AngularFireStorage
   ) {}
 
   private commonStore$ = combineLatest([
@@ -50,7 +62,7 @@ export class TasksEffects {
           switchMap((user) =>
             this.db.object(`${CollectionKeys.Users}/${user.id}`).valueChanges()
           ),
-          switchMap((user: DatabaseUser) => 
+          switchMap((user: DatabaseUser) =>
             of(tasksActions.fetchBoards({ boards: user.boards || [] }))
           )
         )
@@ -156,9 +168,12 @@ export class TasksEffects {
         this.store.select(tasksSelectedBoardSelector).pipe(
           first(),
           map((selectedBoard) => {
-            if (!selectedBoard && action.boards.length > 0)
-              return tasksActions.setActiveBoard({ board: action.boards[0] });
-            return { type: 'invalid' };
+            const newSelectedBoard =
+              !selectedBoard && action.boards.length > 0
+                ? action.boards[0]
+                : action.boards.find((board) => board.id === selectedBoard?.id) || null;
+
+            return tasksActions.setActiveBoard({ board: newSelectedBoard })
           })
         )
       )
@@ -218,7 +233,7 @@ export class TasksEffects {
       ofType(tasksActions.setActiveBoard),
       filter((action) => action.board !== null),
       switchMap(() => this.commonStore$.pipe(first())),
-      switchMap(({board}) => this.getProjectsById(board.id)),
+      switchMap(({ board }) => this.getProjectsById(board.id)),
       map((projects) => tasksActions.fetchProjects({ projects }))
     )
   );
@@ -278,6 +293,17 @@ export class TasksEffects {
         )
       ),
       catchError(() => of({ type: 'invalid' }))
+    )
+  );
+
+  fetchBoardImages = createEffect(() =>
+    this.actions$.pipe(
+      ofType(tasksActions.fetchBoardImages),
+      switchMap(() =>
+        this.db.list<BoardImages>(CollectionKeys.BoardImages).valueChanges()
+      ),
+      switchMap((list) => of(tasksActions.setBoardImages({ images: list }))),
+      catchError(() => of(tasksActions.setBoardImages({ images: [] })))
     )
   );
 

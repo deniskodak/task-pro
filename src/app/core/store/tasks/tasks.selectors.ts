@@ -12,3 +12,6 @@ export const tasksLoadingBoardsSelector = (state: AppState) =>
   state.tasks.loadingBoards;
 export const tasksLoadingProjectsSelector = (state: AppState) =>
   state.tasks.loadingProjects;
+
+export const tasksBoardImagesSelector = (state: AppState) =>
+  state.tasks.boardImages;

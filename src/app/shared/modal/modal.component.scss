@@ -47,3 +47,15 @@
         max-width: 400px;
     }
 }
+
+app-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: var(--backdrop-bg-cl);
+    transform: translate(-50%,-50%);
+    @extend %align-full;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+}

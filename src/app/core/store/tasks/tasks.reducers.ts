@@ -10,6 +10,21 @@ export interface TasksState {
   selectedBoard: Board;
   loadingBoards: boolean;
   loadingProjects: boolean;
+  boardImages: BoardImages[];
+}
+
+export interface BoardImages {
+  name: string;
+  backgroundImage: {
+    web: {
+      baseUrl: string;
+      '2xUrl': string;
+    };
+  };
+  previewImage: {
+    baseUrl: string;
+    '2xUrl': string;
+  };
 }
 
 const initialState: TasksState = {
@@ -18,6 +33,7 @@ const initialState: TasksState = {
   projects: [],
   loadingBoards: false,
   loadingProjects: false,
+  boardImages: [],
 };
 
 export const tasksReducer = createReducer(
@@ -43,5 +59,9 @@ export const tasksReducer = createReducer(
   on(tasksActions.fetchBoardsStart, (state) => ({
     ...state,
     loadingBoards: true,
+  })),
+  on(tasksActions.setBoardImages, (state, action) => ({
+    ...state,
+    boardImages: action.images,
   }))
 );

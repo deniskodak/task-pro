@@ -22,11 +22,27 @@
         <mat-icon [svgIcon]="icon"></mat-icon>
       </li>
     </ul>
-    <!-- <ul> -->
-      <!-- <li *ngFor="let item of previewImages$ | async; trackBy:"> -->
-        <!-- <img [src]="(item.getDownloadURL())" > -->
-      <!-- </li> -->
-    <!-- </ul> -->
+    <ul class="background-list">
+      <li
+        class="background-item withIcon"
+        [class.active]="selectedImage === 'default'"
+        (click)="onImageClick('default')"
+      >
+        <mat-icon
+          svgIcon="defaultBoardBg"
+          class="default-board-bg-icon"
+        ></mat-icon>
+      </li>
+      <li
+        class="background-item"
+        *ngFor="let boardImage of boardImages$ | async"
+        [class.active]="selectedImage === boardImage.name"
+        (click)="onImageClick(boardImage.name)"
+        load="lazy"
+      >
+        <img [src]="boardImage.previewImage['baseUrl']" />
+      </li>
+    </ul>
     <button class="button withIcon" [@vibrateAnimation]="vibrateState">
       <app-square-button></app-square-button>{{ isEdit ? "Edit" : "Create" }}
     </button>

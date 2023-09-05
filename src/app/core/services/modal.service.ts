@@ -14,6 +14,7 @@ export type Options = modalOptions | null;
 })
 export class ModalService extends ShowService {
   modalOptions$ = new BehaviorSubject<modalOptions | null>(null);
+  isLoading$ = new BehaviorSubject(false);
 
   constructor() {
     super();
@@ -21,6 +22,10 @@ export class ModalService extends ShowService {
 
   setModalOptions(options: modalOptions) {
     this.modalOptions$.next(options);
+  }
+
+  setLoading(value: boolean) {
+    this.isLoading$.next(value)
   }
 
   override hide() {
