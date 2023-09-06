@@ -12,7 +12,15 @@
       [class.default]="!boardImage"
     >
       {{ (selectedBoard$ | async).name }}
-      <a class="board-title-filters-link" type="button" aria-label="filters" (click)="onFiltersClick()"
+      <a
+        class="board-title-filters-link"
+        type="button"
+        aria-label="filters"
+        (click)="onFiltersClick()"
+        matBadge="1"
+        matBadgeSize="small"
+        matBadgePosition="before"
+        [matBadgeHidden]="(projectFilter$ | async) === 'all'"
         ><mat-icon svgIcon="filters" class="filters-icon"></mat-icon>Filters</a
       >
     </h2>

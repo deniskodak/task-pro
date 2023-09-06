@@ -81,6 +81,12 @@
         vertical-align: text-top;
         margin-right: 0.5rem;
     }
+
+    ::ng-deep {
+        .mat-badge-content {
+            background-color: var(--primary-cl); 
+        }
+    }
 }
 
 .columns-wrapper {
