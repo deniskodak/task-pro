@@ -13,6 +13,7 @@ export enum Themes {
   imports: [MatRadioModule],
   selector: 'app-radio-button',
   template: `<mat-radio-button
+    [name]="name"
     [class]="['radio', theme]"
     [value]="value"
   >{{ label }}</mat-radio-button>`,
@@ -23,4 +24,5 @@ export class RadioComponent {
   @Input() theme: Themes = Themes.Gray;
   @Input() value = null;
   @Input() label = '';
+  @Input() name = '';
 }

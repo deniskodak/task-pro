@@ -16,6 +16,7 @@
 }
 
 .filters-link {
+    position: relative;
     margin-left: auto;
     color: var(--task-text-secondary-cl);
     font-weight: 400;
@@ -24,8 +25,22 @@
     transition: color var(--gl-transition);
 
     &:hover,
-    &:focus {
+    &:focus,
+    &.active {
         color: var(--accent-cl);
+    }
+
+    .link-radio {
+        position: absolute;
+        left: 0;
+        right: 0;
+        opacity: 0;
+        width: 100%;
+        ::ng-deep {
+            .mdc-radio__native-control{
+                width: 3rem;
+            }
+        }
     }
 }
 

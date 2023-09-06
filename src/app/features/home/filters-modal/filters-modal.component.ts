@@ -1,40 +1,65 @@
+import { Observable } from 'rxjs';
+import { tasksActions } from 'src/app/core/store/tasks/tasks.actions';
+import { Store } from '@ngrx/store';
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
+import { NgFor, AsyncPipe } from '@angular/common';
 import { RadioComponent } from './../../../shared/radio-group/radio.component';
-import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
+import { MatRadioModule, MatRadioChange } from '@angular/material/radio';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
-import { Component } from '@angular/core';
-import { priorityList, THEMES_PRIORITY_MAP, TaskPriority, PRIORITY_LABEL_MAP } from 'src/app/shared/constants/priority';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  priorityList,
+  THEMES_PRIORITY_MAP,
+  TaskPriority,
+  PRIORITY_LABEL_MAP,
+} from 'src/app/shared/constants/priority';
+import { Filter } from 'src/app/core/store/tasks/tasks.reducers';
+import { tasksProjectFilterSelector } from 'src/app/core/store/tasks/tasks.selectors';
 
-export const FILTERS_KEY = 'filters'
-export type Filter = TaskPriority | 'all'
+export const FILTERS_KEY = 'filters';
 
 @Component({
   standalone: true,
-  imports: [ModalComponent, MatRadioModule, RadioComponent, NgFor, FormsModule],
+  imports: [
+    ModalComponent,
+    MatRadioModule,
+    RadioComponent,
+    NgFor,
+    FormsModule,
+    AsyncPipe,
+  ],
   selector: 'app-filters-modal',
   templateUrl: './filters-modal.component.html',
-  styleUrls: ['./filters-modal.component.scss']
+  styleUrls: ['./filters-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FiltersModalComponent {
+export class FiltersModalComponent implements OnInit {
   priorityList = priorityList;
-  selectedFilter: Filter = 'all';
+  selectedFilter$: Observable<Filter>;
 
-  constructor(){}
+  constructor(private store: Store) {}
+
+  ngOnInit(): void {
+    this.selectedFilter$ = this.store.select(tasksProjectFilterSelector);
+  }
 
   getRadioTheme(priority: TaskPriority) {
-    return THEMES_PRIORITY_MAP[priority]
+    return THEMES_PRIORITY_MAP[priority];
   }
 
   getPriorityLabel(priority: TaskPriority) {
-    return PRIORITY_LABEL_MAP[priority]
+    return PRIORITY_LABEL_MAP[priority];
+  }
+
+  onRadioChange(event: MatRadioChange) {
+    this.store.dispatch(tasksActions.setProjectFilter({ filter: event.value }));
   }
 
   onClickAll() {
-    this.selectedFilter = 'all'
+    this.store.dispatch(tasksActions.setProjectFilter({ filter: 'all' }));
   }
 
-  // changeRadio(change: MatRadioChange) {
-  //   this.selectedFilter = change.value
-  // }
+  changeRadio(priority: Filter) {
+    this.store.dispatch(tasksActions.setProjectFilter({ filter: priority }));
+  }
 }

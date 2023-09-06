@@ -5,9 +5,7 @@ import { Project } from './../../../../core/models/project.model';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import {
-  tasksProjectsSelector,
-} from 'src/app/core/store/tasks/tasks.selectors';
+import { taskFilteredProjectsSelector } from 'src/app/core/store/tasks/tasks.selectors';
 
 @Component({
   standalone: true,
@@ -23,10 +21,10 @@ export class ColumnsListComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.projects$ = this.store.select(tasksProjectsSelector);
+    this.projects$ = this.store.select(taskFilteredProjectsSelector);
   }
 
   trackByProject(index, project: Project) {
-    return project.id
+    return project.id;
   }
 }

@@ -171,9 +171,33 @@ export class TasksEffects {
             const newSelectedBoard =
               !selectedBoard && action.boards.length > 0
                 ? action.boards[0]
-                : action.boards.find((board) => board.id === selectedBoard?.id) || null;
+                : action.boards.find(
+                    (board) => board.id === selectedBoard?.id
+                  ) || null;
 
-            return tasksActions.setActiveBoard({ board: newSelectedBoard })
+            return tasksActions.setActiveBoard({ board: newSelectedBoard });
+          })
+        )
+      )
+    )
+  );
+
+  setProjectFilter = createEffect(() =>
+    this.actions$.pipe(
+      ofType(tasksActions.setProjectFilter),
+      switchMap(({ filter }) =>
+        this.commonStore$.pipe(
+          map(({ projects }) => {
+            const filteredProjects = projects.map((project) => ({
+              ...project,
+              tasks: project.tasks.filter(
+                (task) => filter === 'all' || task.labelColor === filter
+              ),
+            }));
+
+            return tasksActions.setFilteredProjects({
+              projects: filteredProjects,
+            });
           })
         )
       )
@@ -235,6 +259,15 @@ export class TasksEffects {
       switchMap(() => this.commonStore$.pipe(first())),
       switchMap(({ board }) => this.getProjectsById(board.id)),
       map((projects) => tasksActions.fetchProjects({ projects }))
+    )
+  );
+
+  fetchFilteredProjects = createEffect(() =>
+    this.actions$.pipe(
+      ofType(tasksActions.fetchProjects),
+      map((action) =>
+        tasksActions.setFilteredProjects({ projects: action.projects })
+      )
     )
   );
 
